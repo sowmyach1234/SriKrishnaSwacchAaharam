@@ -1,0 +1,66 @@
+{% extends "layouts/base.html" %}
+
+
+
+{% block content %}
+
+
+
+<section class="blog-detail-page">
+
+
+
+<div class="blog-detail-card">
+
+
+
+<img src="{{url_for(
+'static',
+filename='images/'+blog.image
+)}}">
+
+
+
+<h1>
+
+{{blog.title}}
+
+</h1>
+
+
+
+<p class="blog-detail-description">
+
+{{blog.description}}
+
+</p>
+
+
+
+
+<div class="blog-detail-content">
+
+{{blog.content}}
+
+</div>
+
+
+
+
+<a href="/blog">
+
+← Back To Blogs
+
+</a>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+{% endblock %}

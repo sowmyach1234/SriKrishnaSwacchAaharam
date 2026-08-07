@@ -1,0 +1,445 @@
+{% extends "layouts/base.html" %}
+
+
+
+{% block title %}
+
+My Wishlist | Sri Krishna Swacch Aaharam
+
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+
+
+
+<section class="premium-wishlist-page">
+
+
+
+
+
+<!-- ==========================
+     WISHLIST HERO
+========================== -->
+
+
+<div class="wishlist-hero">
+
+
+
+<div>
+
+
+<span class="wishlist-tag">
+
+❤️ Organic Wishlist
+
+</span>
+
+
+
+
+<h1>
+
+Your Favourite Products
+
+</h1>
+
+
+
+<p>
+
+Save your favourite natural products and shop anytime.
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="wishlist-status-card">
+
+
+<h3>
+
+🌿 Healthy Choices
+
+</h3>
+
+
+<p>
+
+Pure • Natural • Traditional
+
+</p>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{% if wishlist_items %}
+
+
+
+
+
+
+<!-- ==========================
+     ACTION HEADER
+========================== -->
+
+
+<div class="wishlist-action-bar">
+
+
+
+<h2>
+
+{{wishlist_count}}
+Products Saved
+
+</h2>
+
+
+
+
+
+<a href="{{url_for('wishlist.clear_wishlist')}}"
+class="clear-wishlist-btn">
+
+
+🗑 Clear Wishlist
+
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ==========================
+     PRODUCTS GRID
+========================== -->
+
+
+
+<div class="wishlist-grid">
+
+
+
+
+
+{% for item in wishlist_items %}
+
+
+
+
+<div class="wishlist-card"
+data-wishlist-id="{{item.id}}">
+
+
+
+
+
+
+<!-- IMAGE -->
+
+
+<div class="wishlist-image">
+
+
+{% if item.product.image %}
+
+
+
+<img src="{{url_for(
+'static',
+filename='images/products/'+item.product.image
+)}}"
+alt="{{item.product.product_name}}">
+
+
+
+{% else %}
+
+
+<div class="wishlist-placeholder">
+
+🌿
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- DETAILS -->
+
+
+<div class="wishlist-details">
+
+
+<p class="wishlist-category">
+
+{{item.product.category}}
+
+</p>
+
+
+
+<h2>
+
+{{item.product.product_name}}
+
+</h2>
+
+
+
+
+<div class="wishlist-price">
+
+
+₹{{item.product.price}}
+
+
+</div>
+
+
+
+
+<p class="wishlist-stock">
+
+
+{% if item.product.stock > 0 %}
+
+
+✔ Available Stock:
+{{item.product.stock}}
+
+
+{% else %}
+
+
+❌ Currently unavailable
+
+
+{% endif %}
+
+
+</p>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ACTIONS -->
+
+
+<div class="wishlist-actions">
+
+
+
+
+
+
+{% if item.product.stock > 0 %}
+
+
+
+<button
+
+class="premium-cart-btn add-cart-btn"
+
+data-id="{{item.product.id}}">
+
+
+🛒 Add To Cart
+
+
+</button>
+
+
+
+{% else %}
+
+
+<button
+class="disabled-cart-btn"
+disabled>
+
+
+Out Of Stock
+
+
+</button>
+
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+<button
+
+class="remove-wishlist-btn"
+
+data-id="{{item.id}}">
+
+🗑 Remove
+
+</button>
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+{% endfor %}
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+{% else %}
+
+
+
+
+
+<!-- ==========================
+EMPTY WISHLIST
+========================== -->
+
+
+<div class="empty-wishlist-box">
+
+
+<div>
+
+❤️
+
+</div>
+
+
+
+<h1>
+
+Your Wishlist Is Empty
+
+</h1>
+
+
+
+<p>
+
+Save your favourite organic products here.
+
+</p>
+
+
+
+
+<a href="/products">
+
+Explore Products
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+{% endif %}
+
+
+
+
+
+</section>
+
+
+
+
+
+
+{% endblock %}

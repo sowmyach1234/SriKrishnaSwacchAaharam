@@ -1,0 +1,969 @@
+{% extends "admin/admin_base.html" %}
+
+
+{% block title %}
+Customer AI Profile
+{% endblock %}
+
+
+
+{% block page_title %}
+Customer Intelligence Profile
+{% endblock %}
+
+
+
+
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+href="{{ url_for(
+'static',
+filename='css/customer_profile.css'
+)}}">
+
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+
+
+<div class="customer-ai-profile">
+
+
+
+<!-- ===================================
+ PREMIUM CUSTOMER HEADER
+=================================== -->
+
+
+<section class="profile-hero">
+
+
+
+<div class="profile-avatar-large">
+
+{{ customer.name[0]|upper }}
+
+</div>
+
+
+
+
+<div class="profile-main-info">
+
+
+<h1>
+
+{{customer.name}}
+
+</h1>
+
+
+<p>
+📞 {{customer.phone}}
+</p>
+
+
+<p>
+✉️ {{customer.email or "No Email Available"}}
+</p>
+
+
+<p>
+📍 {{customer.address or "Address Not Available"}}
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="customer-badge">
+
+
+{% if customer.total_spent >= 10000 %}
+
+<span class="premium">
+
+⭐ Premium Customer
+
+</span>
+
+
+{% elif customer.total_spent >= 5000 %}
+
+<span class="regular">
+
+Regular Customer
+
+</span>
+
+
+{% else %}
+
+<span class="new">
+
+New Customer
+
+</span>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ===================================
+ AI INTELLIGENCE CARDS
+=================================== -->
+
+
+<section class="ai-cards">
+
+
+
+
+
+<div class="ai-card">
+
+
+<div class="ai-icon">
+
+🤖
+
+</div>
+
+
+<h3>
+AI Customer Score
+</h3>
+
+
+<h1>
+
+{{ai_profile.loyalty_score or 0}}/100
+
+</h1>
+
+
+<p>
+
+Customer Loyalty Intelligence
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+<div class="ai-card">
+
+
+<div class="ai-icon">
+
+🔮
+
+</div>
+
+
+<h3>
+Purchase Prediction
+</h3>
+
+
+<h2>
+
+{{ai_summary.next_purchase}}
+
+</h2>
+
+
+<p>
+
+Probability:
+
+{{ai_summary.purchase_probability}}%
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="ai-card">
+
+
+<div class="ai-icon">
+
+👑
+
+</div>
+
+
+<h3>
+Customer Type
+</h3>
+
+
+<h2>
+
+{{ai_summary.customer_type}}
+
+</h2>
+
+
+<p>
+
+Behaviour:
+
+{{ai_summary.behaviour}}
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="ai-card">
+
+
+<div class="ai-icon">
+
+⚠️
+
+</div>
+
+
+<h3>
+Risk Analysis
+</h3>
+
+
+<h2>
+
+{{ai_summary.risk_level}}
+
+</h2>
+
+
+<p>
+
+Retention Monitoring
+
+</p>
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===================================
+ CUSTOMER KPI
+=================================== -->
+
+
+<section class="profile-kpis">
+
+
+
+
+
+<div class="kpi-box">
+
+<h4>
+Total Orders
+</h4>
+
+<h2>
+
+{{customer.total_orders}}
+
+</h2>
+
+</div>
+
+
+
+
+
+<div class="kpi-box">
+
+<h4>
+Total Spending
+</h4>
+
+<h2>
+
+₹{{customer.total_spent}}
+
+</h2>
+
+</div>
+
+
+
+
+
+
+<div class="kpi-box">
+
+<h4>
+Customer Since
+</h4>
+
+<h2 class="date">
+
+{{customer.created_at.strftime('%d %b %Y')}}
+
+</h2>
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===================================
+ AI RECOMMENDATIONS
+=================================== -->
+
+
+<section class="ai-recommendation-panel">
+
+
+<div class="section-title">
+
+<h2>
+
+🤖 AI Recommended Actions
+
+</h2>
+
+
+<p>
+
+Personalized suggestions generated from purchase behaviour
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="recommendation-grid">
+
+
+
+<div class="recommend-card">
+
+🥛
+
+<h3>
+A2 Cow Ghee
+</h3>
+
+<p>
+High repeat purchase probability
+</p>
+
+</div>
+
+
+
+
+
+<div class="recommend-card">
+
+🌾
+
+<h3>
+Organic Millets
+</h3>
+
+<p>
+Healthy lifestyle recommendation
+</p>
+
+</div>
+
+
+
+
+
+<div class="recommend-card">
+
+🫙
+
+<h3>
+Traditional Pickles
+</h3>
+
+<p>
+Based on previous buying patterns
+</p>
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ===================================
+ CUSTOMER BEHAVIOUR ANALYTICS
+=================================== -->
+
+
+<section class="behaviour-section">
+
+
+<div class="section-title">
+
+
+<h2>
+🧠 Customer Behaviour Intelligence
+</h2>
+
+
+<p>
+AI-powered analysis based on purchasing patterns
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="behaviour-grid">
+
+
+
+<div class="behaviour-card">
+
+
+<div class="behaviour-icon">
+🛒
+</div>
+
+
+<h4>
+Purchase Frequency
+</h4>
+
+
+<h2>
+{{ purchase_frequency }}
+</h2>
+
+
+</div>
+
+
+
+
+
+
+<div class="behaviour-card">
+
+
+<div class="behaviour-icon">
+🔁
+</div>
+
+
+<h4>
+Repeat Purchase Probability
+</h4>
+
+
+<h2>
+{{ repeat_probability }}%
+</h2>
+
+
+</div>
+
+
+
+
+
+
+<div class="behaviour-card">
+
+
+<div class="behaviour-icon">
+📅
+</div>
+
+
+<h4>
+Last Purchase
+</h4>
+
+
+<h2>
+{{ last_purchase }}
+</h2>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="behaviour-card">
+
+
+<div class="behaviour-icon">
+🌿
+</div>
+
+
+<h4>
+AI Segment
+</h4>
+
+
+<h2>
+{{ customer_segment }}
+</h2>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===================================
+ CUSTOMER VALUE ANALYTICS
+=================================== -->
+
+
+<section class="value-section">
+
+
+<div class="section-title">
+
+
+<h2>
+💎 Customer Lifetime Value
+</h2>
+
+
+<p>
+Financial behaviour analysis
+</p>
+
+
+</div>
+
+
+
+
+<div class="value-grid">
+
+
+<div class="value-card">
+
+
+<h4>
+Total Lifetime Value
+</h4>
+
+
+<h1>
+₹{{ customer.total_spent }}
+</h1>
+
+
+</div>
+
+
+
+
+
+<div class="value-card">
+
+
+<h4>
+Average Order Value
+</h4>
+
+
+<h1>
+₹{{ average_order_value }}
+</h1>
+
+
+</div>
+
+
+
+
+
+<div class="value-card">
+
+
+<h4>
+Total Purchases
+</h4>
+
+
+<h1>
+{{ customer.total_orders }}
+</h1>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===================================
+ CUSTOMER ANALYTICS CHARTS
+=================================== -->
+
+
+<section class="chart-section">
+
+
+<div class="chart-box">
+
+
+<h2>
+📈 Purchase Trend
+</h2>
+
+
+<canvas id="purchaseTrendChart"></canvas>
+
+
+</div>
+
+
+
+
+
+<div class="chart-box">
+
+
+<h2>
+🥗 Category Preference
+</h2>
+
+
+<canvas id="categoryPreferenceChart"></canvas>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+<script>
+
+
+window.customerMonthlyLabels =
+{{ monthly_labels | tojson }};
+
+
+window.customerMonthlyValues =
+{{ monthly_values | tojson }};
+
+
+
+window.customerCategoryLabels =
+{{ category_labels | tojson }};
+
+
+window.customerCategoryValues =
+{{ category_values | tojson }};
+
+
+</script>
+
+
+
+
+
+<!-- ===================================
+ PURCHASE HISTORY
+=================================== -->
+
+
+<section class="purchase-section">
+
+
+<div class="section-title">
+
+<h2>
+
+🛒 Purchase History
+
+</h2>
+
+
+<p>
+
+Complete customer transaction record
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+<table class="premium-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Order ID
+</th>
+
+
+<th>
+Date
+</th>
+
+
+<th>
+Amount
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+
+<tbody>
+
+
+{% for order in orders %}
+
+
+<tr>
+
+
+<td>
+
+#{{order.id}}
+
+</td>
+
+
+
+<td>
+
+{{order.created_at.strftime('%d-%m-%Y')}}
+
+</td>
+
+
+
+
+<td>
+
+₹{{order.total_amount}}
+
+</td>
+
+
+
+
+<td>
+
+<span class="status">
+
+{{order.status}}
+
+</span>
+
+</td>
+
+
+
+
+
+<td>
+
+
+<a href="{{url_for(
+'admin_orders.order_details',
+order_id=order.id
+)}}"
+class="view-button">
+
+View
+
+</a>
+
+
+</td>
+
+
+
+
+</tr>
+
+
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="5"
+style="text-align:center">
+
+No Orders Found
+
+</td>
+
+</tr>
+
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</section>
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

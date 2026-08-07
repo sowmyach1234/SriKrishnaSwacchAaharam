@@ -1,0 +1,501 @@
+{% extends "admin/admin_base.html" %}
+
+
+
+{% block title %}
+Order Management
+{% endblock %}
+
+
+
+
+
+{% block page_title %}
+Order Management
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="orders-page">
+
+
+
+<!-- ================= KPI CARDS ================= -->
+
+
+<div class="cards">
+
+
+
+<div class="card">
+
+<h3>
+📦 Total Orders
+</h3>
+
+<h2>
+{{ total_orders }}
+</h2>
+
+<span>
+All Orders
+</span>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+⏳ Pending
+</h3>
+
+<h2>
+{{ pending_orders }}
+</h2>
+
+<span>
+Waiting Confirmation
+</span>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+🚚 Shipped
+</h3>
+
+<h2>
+{{ shipped_orders }}
+</h2>
+
+<span>
+On Delivery
+</span>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+✅ Delivered
+</h3>
+
+<h2>
+{{ delivered_orders }}
+</h2>
+
+<span>
+Completed Orders
+</span>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= SEARCH FILTER ================= -->
+
+
+<div class="panel order-filter-card">
+
+
+<form method="GET">
+
+
+
+<input
+
+type="text"
+
+name="search"
+
+value="{{search}}"
+
+placeholder="🔍 Search customer, phone or order ID"
+
+class="order-search"
+
+>
+
+
+
+
+
+<select
+
+name="status"
+
+class="status-filter"
+
+>
+
+
+<option value="">
+All Status
+</option>
+
+
+
+<option value="Pending"
+{% if status_filter=="Pending" %}
+selected
+{% endif %}
+>
+Pending
+</option>
+
+
+
+
+<option value="Confirmed"
+{% if status_filter=="Confirmed" %}
+selected
+{% endif %}
+>
+Confirmed
+</option>
+
+
+
+
+<option value="Packed"
+{% if status_filter=="Packed" %}
+selected
+{% endif %}
+>
+Packed
+</option>
+
+
+
+
+<option value="Shipped"
+{% if status_filter=="Shipped" %}
+selected
+{% endif %}
+>
+Shipped
+</option>
+
+
+
+
+<option value="Delivered"
+{% if status_filter=="Delivered" %}
+selected
+{% endif %}
+>
+Delivered
+</option>
+
+
+
+
+<option value="Cancelled"
+{% if status_filter=="Cancelled" %}
+selected
+{% endif %}
+>
+Cancelled
+</option>
+
+
+
+</select>
+
+
+
+
+
+
+<button class="filter-btn">
+
+Search
+
+</button>
+
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= ORDER CARDS ================= -->
+
+
+
+<div class="orders-grid">
+
+
+
+{% for order in orders %}
+
+
+
+<div class="order-card">
+
+
+
+
+
+<div class="order-card-header">
+
+
+<h2>
+
+#{{order.id}}
+
+</h2>
+
+
+
+<span class="order-date">
+
+{{order.created_at.strftime('%d %b %Y')}}
+
+</span>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="customer-section">
+
+
+<h3>
+
+👤 Customer
+
+</h3>
+
+
+<p>
+
+{{order.customer_name}}
+
+</p>
+
+
+<p>
+
+📞 {{order.customer_phone}}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="order-info">
+
+
+<div>
+
+
+<h4>
+Amount
+</h4>
+
+<strong>
+
+₹{{order.total_amount}}
+
+</strong>
+
+
+</div>
+
+
+
+
+
+<div>
+
+
+<h4>
+Status
+</h4>
+
+
+
+{% if order.status=="Pending" %}
+
+<span class="status pending">
+🟡 Pending
+</span>
+
+
+
+{% elif order.status=="Confirmed" %}
+
+<span class="status confirmed">
+🔵 Confirmed
+</span>
+
+
+
+
+{% elif order.status=="Packed" %}
+
+<span class="status packed">
+🟣 Packed
+</span>
+
+
+
+
+{% elif order.status=="Shipped" %}
+
+<span class="status shipped">
+🚚 Shipped
+</span>
+
+
+
+
+{% elif order.status=="Delivered" %}
+
+<span class="status delivered">
+🟢 Delivered
+</span>
+
+
+
+
+{% else %}
+
+<span class="status cancelled">
+🔴 Cancelled
+</span>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="order-footer">
+
+
+<a href="{{url_for(
+
+'admin_orders.order_details',
+
+order_id=order.id
+
+)}}"
+
+class="view-order-btn">
+
+
+View Details
+
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+{% else %}
+
+
+
+<div class="panel">
+
+<h2>
+No Orders Found
+</h2>
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}

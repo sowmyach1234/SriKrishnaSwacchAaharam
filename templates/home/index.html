@@ -1,0 +1,791 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+
+<!-- ===========================
+ PREMIUM HERO SECTION
+=========================== -->
+
+<section class="premium-hero">
+
+    <div class="hero-content">
+
+        <span class="hero-badge">
+            100% Natural • Organic • Traditional
+        </span>
+
+
+        <h1>
+            PURE FOOD
+            <br>
+            <span>PURE LIFE</span>
+        </h1>
+
+
+        <p>
+            Experience the goodness of nature with our wide range of
+            organic products prepared using traditional methods.
+        </p>
+
+
+        <div class="hero-points">
+
+            <div>
+                🌿 Chemical Free
+            </div>
+
+            <div>
+                🌾 Farm Fresh
+            </div>
+
+            <div>
+                🥗 Healthy Living
+            </div>
+
+        </div>
+
+
+
+        <div class="hero-buttons">
+
+
+            <a href="/products" class="primary-btn">
+                Shop Now
+            </a>
+
+
+            <a href="#story" class="secondary-btn">
+                Our Story
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="hero-products">
+
+
+        <div class="product-circle"></div>
+
+
+
+        <div class="floating-product oil-product">
+
+            <img src="{{url_for('static',
+            filename='images/oil.jpg')}}">
+
+        </div>
+
+
+
+        <div class="floating-product ghee-product">
+
+            <img src="{{url_for('static',
+            filename='images/ghee.jpg')}}">
+
+        </div>
+
+
+
+
+        <div class="floating-product millet-product">
+
+            <img src="{{url_for('static',
+            filename='images/millet.jpg')}}">
+
+        </div>
+
+
+        <div class="floating-product sweets-product">
+
+            <img src="{{url_for('static',
+            filename='images/sweets.jpg')}}">
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+</section>
+
+
+
+
+
+<!-- ===========================
+ BRAND FEATURES
+=========================== -->
+
+
+<section class="features-section">
+
+
+<div class="section-title">
+
+<h2>
+Why Choose Sri Krishna?
+</h2>
+
+<p>
+Pure ingredients. Traditional methods. Healthy lifestyle.
+</p>
+
+</div>
+
+
+
+
+<div class="feature-container">
+
+
+<div class="feature-card">
+
+<div class="feature-icon">
+🌱
+</div>
+
+<h3>
+100% Natural
+</h3>
+
+<p>
+No harmful chemicals
+</p>
+
+</div>
+
+
+
+
+<div class="feature-card">
+
+<div class="feature-icon">
+🌾
+</div>
+
+<h3>
+Farm Fresh
+</h3>
+
+<p>
+Direct from farmers
+</p>
+
+</div>
+
+
+
+
+
+<div class="feature-card">
+
+<div class="feature-icon">
+🪔
+</div>
+
+<h3>
+Traditional & Pure
+</h3>
+
+<p>
+Authentic preparation
+</p>
+
+</div>
+
+
+
+
+
+<div class="feature-card">
+
+<div class="feature-icon">
+💚
+</div>
+
+<h3>
+Healthy Living
+</h3>
+
+<p>
+Better food choices
+</p>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ===========================
+ CATEGORY SECTION
+=========================== -->
+
+
+<section class="category-section">
+
+
+<div class="section-title">
+
+<h2>
+Explore Categories
+</h2>
+
+</div>
+
+
+
+
+<div class="category-scroll">
+
+
+
+<div class="category-item">
+
+<img src="{{url_for('static',
+filename='images/oil.jpg')}}">
+
+<h3>
+Cold Pressed Oils
+</h3>
+
+</div>
+
+
+
+
+
+<div class="category-item">
+
+<img src="{{url_for('static',
+filename='images/pickle.jpg')}}">
+
+<h3>
+Traditional Pickles
+</h3>
+
+</div>
+
+
+
+
+
+<div class="category-item">
+
+<img src="{{url_for('static',
+filename='images/millet.jpg')}}">
+
+<h3>
+Organic Millets
+</h3>
+
+</div>
+
+
+
+
+
+<div class="category-item">
+
+<img src="{{url_for('static',
+filename='images/ghee.jpg')}}">
+
+<h3>
+A2 Cow Ghee
+</h3>
+
+</div>
+
+
+
+
+
+<div class="category-item">
+
+<img src="{{url_for('static',
+filename='images/sweets.jpg')}}">
+
+<h3>
+Organic Sweets
+</h3>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==========================================
+ PREMIUM BEST SELLERS SECTION
+========================================== -->
+
+<section class="best-seller-section">
+
+
+<div class="best-seller-header">
+
+<span>
+🌿 Customer Favorites
+</span>
+
+
+<h2>
+Our Best Sellers
+</h2>
+
+
+<p>
+Discover the most loved organic products chosen by our customers.
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="best-seller-grid">
+
+
+{% for product in best_sellers %}
+
+
+<div class="best-seller-card">
+
+
+
+<!-- IMAGE AREA -->
+
+<div class="best-seller-image">
+
+
+<img src="{{url_for(
+'static',
+filename='images/products/' + product.image
+)}}"
+alt="{{product.product_name}}">
+
+
+
+<span class="best-seller-badge">
+⭐ Best Seller
+</span>
+
+
+
+<button
+class="wishlist wishlist-btn"
+data-id="{{product.id}}">
+
+♡
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- CONTENT -->
+
+
+<div class="best-seller-content">
+
+
+<p class="best-category">
+
+{{product.category}}
+
+</p>
+
+
+
+<h3>
+
+{{product.product_name}}
+
+</h3>
+
+
+
+
+<div class="best-rating">
+
+★★★★★
+
+</div>
+
+
+
+<h4>
+
+₹ {{product.price}}
+
+</h4>
+
+
+
+
+
+<div class="best-buttons">
+
+
+<a href="/product/{{product.id}}"
+class="best-view-btn">
+
+View Details
+
+</a>
+
+
+
+
+{% if product.stock > 0 %}
+
+
+<button
+class="premium-cart-btn add-cart-btn"
+data-id="{{product.id}}">
+
+🛒 Add To Cart
+
+</button>
+
+
+
+{% else %}
+
+
+<button
+class="premium-cart-btn disabled-cart-btn"
+disabled>
+
+❌ Out of Stock
+
+</button>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ===========================
+ TRUST SECTION
+=========================== -->
+
+
+<section class="trust-section">
+
+
+<div class="trust-card">
+
+<h3>
+🚚
+</h3>
+
+<p>
+Free Shipping
+</p>
+
+</div>
+
+
+
+
+<div class="trust-card">
+
+<h3>
+🔒
+</h3>
+
+<p>
+Secure Payment
+</p>
+
+</div>
+
+
+
+
+
+<div class="trust-card">
+
+<h3>
+↩
+</h3>
+
+<p>
+Easy Returns
+</p>
+
+</div>
+
+
+
+
+
+<div class="trust-card">
+
+<h3>
+✓
+</h3>
+
+<p>
+Quality Assured
+</p>
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===========================
+ OUR STORY
+=========================== -->
+
+
+<section class="story-section" id="story">
+
+
+<div class="story-image">
+
+
+<img src="{{url_for('static',
+filename='images/farmer.jpg')}}">
+
+
+</div>
+
+
+
+
+<div class="story-content">
+
+
+<h2>
+Our Story
+</h2>
+
+
+<p>
+
+Sri Krishna Swacch Aaharam was created with a mission
+to bring pure, natural and chemical-free products directly
+from farmers to every home.
+
+</p>
+
+
+<p>
+
+We believe traditional food preparation methods
+create healthier lives and preserve our cultural heritage.
+
+</p>
+
+
+
+<a href="/about" class="primary-btn">
+Know More
+</a>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===========================
+ FOOTER
+=========================== -->
+
+
+<footer class="premium-footer">
+
+
+<div>
+
+
+<h2>
+Sri Krishna
+<br>
+Swacch Aaharam
+</h2>
+
+
+<p>
+Pure Food • Pure Life
+</p>
+
+
+</div>
+
+
+
+
+<div>
+
+<h3>
+Quick Links
+</h3>
+
+
+<p>
+Home
+</p>
+
+<p>
+Products
+</p>
+
+<p>
+Contact
+</p>
+
+
+</div>
+
+
+
+
+<div>
+
+
+<h3>
+Categories
+</h3>
+
+
+<p>
+Oils
+</p>
+
+<p>
+Pickles
+</p>
+
+<p>
+Millets
+</p>
+
+
+</div>
+
+
+
+
+<div>
+
+
+<h3>
+Contact
+</h3>
+
+
+<p>
+Andhra Pradesh, India
+</p>
+
+<p>
+support@skswacchaaharam.com
+</p>
+
+
+</div>
+
+
+
+
+</footer>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,576 @@
+{% extends "admin/admin_base.html" %}
+
+
+
+{% block title %}
+Order Details
+{% endblock %}
+
+
+
+
+
+{% block page_title %}
+Order #{{order.id}}
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="order-details-page">
+
+
+
+
+
+<!-- ================= HEADER ================= -->
+
+
+<div class="order-header-card">
+
+
+<div>
+
+
+<h1>
+🧾 Order #{{order.id}}
+</h1>
+
+
+<p>
+
+Placed on:
+
+{{order.created_at.strftime('%d %B %Y')}}
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="order-actions">
+
+
+<a href="{{url_for(
+'export.invoice',
+order_id=order.id
+)}}"
+
+class="invoice-btn">
+
+📄 Download Invoice
+
+</a>
+
+
+
+<button onclick="window.print()"
+class="print-btn">
+
+🖨 Print
+
+</button>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= CUSTOMER + STATUS ================= -->
+
+
+<div class="dashboard-grid">
+
+
+
+
+
+<div class="panel">
+
+
+<h2>
+👤 Customer Profile
+</h2>
+
+
+
+<div class="customer-profile">
+
+
+<div class="profile-circle">
+
+{{order.customer_name[0]}}
+
+</div>
+
+
+
+<div>
+
+
+<h3>
+
+{{order.customer_name}}
+
+</h3>
+
+
+<p>
+
+📞 {{order.customer_phone}}
+
+</p>
+
+
+<p>
+
+📍 {{order.customer_address}}
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="panel">
+
+
+<h2>
+📦 Update Order Status
+</h2>
+
+
+
+<form method="POST"
+
+action="{{url_for(
+
+'admin_orders.update_status',
+
+order_id=order.id
+
+)}}">
+
+
+
+<select name="status"
+class="status-select">
+
+
+{% for status in [
+"Pending",
+"Confirmed",
+"Packed",
+"Shipped",
+"Delivered",
+"Cancelled"
+] %}
+
+
+<option
+
+value="{{status}}"
+
+{% if order.status==status %}
+selected
+{% endif %}
+
+>
+
+{{status}}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+
+
+<button class="update-btn">
+
+Update Status
+
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= ORDER TRACKING ================= -->
+
+
+
+<div class="panel">
+
+
+<h2>
+🚚 Order Timeline
+</h2>
+
+
+
+<div class="timeline">
+
+
+
+<div class="step active">
+
+<span>
+1
+</span>
+
+Placed
+
+</div>
+
+
+
+
+<div class="
+step
+{% if order.status in ['Confirmed','Packed','Shipped','Delivered'] %}
+active
+{% endif %}
+">
+
+<span>
+2
+</span>
+
+Confirmed
+
+</div>
+
+
+
+
+
+<div class="
+step
+{% if order.status in ['Packed','Shipped','Delivered'] %}
+active
+{% endif %}
+">
+
+
+<span>
+3
+</span>
+
+Packed
+
+
+</div>
+
+
+
+
+
+
+<div class="
+step
+{% if order.status in ['Shipped','Delivered'] %}
+active
+{% endif %}
+">
+
+<span>
+4
+</span>
+
+Shipped
+
+</div>
+
+
+
+
+
+
+<div class="
+step
+{% if order.status=='Delivered' %}
+active
+{% endif %}
+">
+
+
+<span>
+5
+</span>
+
+Delivered
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= PRODUCTS ================= -->
+
+
+
+<div class="panel">
+
+
+<h2>
+🛒 Ordered Products
+</h2>
+
+
+
+
+<table class="premium-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Product
+</th>
+
+
+<th>
+Weight
+</th>
+
+
+<th>
+Quantity
+</th>
+
+
+<th>
+Price
+</th>
+
+
+<th>
+Total
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+{% for item in order.items %}
+
+
+<tr>
+
+
+<td>
+
+{{item.product_name}}
+
+</td>
+
+
+
+<td>
+
+{{item.weight or "-"}}
+
+</td>
+
+
+
+<td>
+
+{{item.quantity}}
+
+</td>
+
+
+
+<td>
+
+₹{{item.price}}
+
+</td>
+
+
+
+
+<td>
+
+₹{{item.price * item.quantity}}
+
+</td>
+
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= BILL SUMMARY ================= -->
+
+
+<div class="bill-summary-card">
+
+
+<div>
+
+<h3>
+Total Amount
+</h3>
+
+
+<p>
+₹{{order.total_amount}}
+</p>
+
+
+</div>
+
+
+
+
+<div>
+
+<h3>
+Payment
+</h3>
+
+
+<p>
+Cash On Delivery
+</p>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<h3>
+Current Status
+</h3>
+
+
+<p>
+{{order.status}}
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}

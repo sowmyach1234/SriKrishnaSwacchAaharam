@@ -1,0 +1,793 @@
+{% extends "admin/admin_base.html" %}
+
+
+{% block title %}
+Analytics
+{% endblock %}
+
+
+
+{% block page_title %}
+Analytics Center
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<section class="analytics-wrapper">
+
+
+
+<div class="analytics-header">
+
+<h1>
+🌿 Analytics Center
+</h1>
+
+
+<p>
+Sri Krishna Swacch Aaharam - Sales, Customer & Product Intelligence
+</p>
+
+
+<div class="analytics-actions">
+
+
+<a href="{{ url_for('export.export_analytics') }}"
+class="analytics-btn">
+
+📊 Download Analytics Report
+
+</a>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- KPI CARDS -->
+
+<div class="analytics-cards">
+
+
+<div class="analytics-card">
+
+<div class="icon">
+🛒
+</div>
+
+<div>
+
+<h3>
+Orders
+</h3>
+
+<h2>
+{{ total_orders }}
+</h2>
+
+<span>
+Total Transactions
+</span>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="analytics-card">
+
+<div class="icon">
+💰
+</div>
+
+<div>
+
+<h3>
+Revenue
+</h3>
+
+<h2>
+₹ {{ total_revenue }}
+</h2>
+
+<span>
+Business Earnings
+</span>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="analytics-card">
+
+<div class="icon">
+👥
+</div>
+
+<div>
+
+<h3>
+Customers
+</h3>
+
+<h2>
+{{ total_customers }}
+</h2>
+
+<span>
+Registered Buyers
+</span>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="analytics-card">
+
+<div class="icon">
+📦
+</div>
+
+<div>
+
+<h3>
+Products
+</h3>
+
+<h2>
+{{ total_products }}
+</h2>
+
+<span>
+Organic Inventory
+</span>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ==========================
+REVENUE INTELLIGENCE
+========================== -->
+
+
+<div class="analytics-chart-grid">
+
+
+
+<div class="analytics-panel">
+
+
+<h2>
+📈 Revenue Trend
+</h2>
+
+
+<div class="chart-box">
+
+<canvas id="salesChart"></canvas>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="analytics-panel">
+
+
+<h2>
+🍩 Category Performance
+</h2>
+
+
+<div class="chart-box">
+
+<canvas id="categoryChart"></canvas>
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- TOP PRODUCTS -->
+
+
+<div class="analytics-panel full-panel">
+
+
+<h2>
+🏆 Product Intelligence
+</h2>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Product
+</th>
+
+<th>
+Units Sold
+</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for item in best_products %}
+
+
+<tr>
+
+
+<td>
+{{ item.product_name }}
+</td>
+
+
+<td>
+{{ item.sold }}
+</td>
+
+
+</tr>
+
+
+{% else %}
+
+<tr>
+
+<td colspan="2">
+
+No Sales Data Available
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- CUSTOMER ANALYTICS -->
+
+
+<div class="analytics-panel full-panel">
+
+
+<h2>
+👥 Customer Intelligence
+</h2>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Customer
+</th>
+
+<th>
+Orders
+</th>
+
+<th>
+Spent
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+{% for customer in customer_orders %}
+
+
+<tr>
+
+
+<td>
+{{customer.customer_name}}
+</td>
+
+
+<td>
+{{customer.orders}}
+</td>
+
+
+<td>
+₹ {{customer.spent}}
+</td>
+
+
+</tr>
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="3">
+
+No Customer Data Available
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+
+<script>
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+
+const salesLabels =
+{{ sales_labels|tojson }};
+
+
+const salesValues =
+{{ sales_values|tojson }};
+
+
+
+const categoryLabels =
+{{ category_labels|tojson }};
+
+
+const categoryValues =
+{{ category_values|tojson }};
+
+
+
+
+/* ==========================
+REVENUE TREND PREMIUM CHART
+========================== */
+
+
+const salesCanvas =
+document.getElementById(
+"salesChart"
+);
+
+
+
+if(salesCanvas){
+
+
+const ctx =
+salesCanvas.getContext("2d");
+
+
+
+const gradient =
+ctx.createLinearGradient(
+0,
+0,
+0,
+300
+);
+
+
+
+gradient.addColorStop(
+0,
+"rgba(27,94,32,0.35)"
+);
+
+
+gradient.addColorStop(
+1,
+"rgba(27,94,32,0.02)"
+);
+
+
+
+
+new Chart(
+salesCanvas,
+{
+
+
+type:"line",
+
+
+data:{
+
+
+labels:
+salesLabels.length
+?
+salesLabels
+:
+["No Data"],
+
+
+
+datasets:[{
+
+
+label:
+"Revenue ₹",
+
+
+data:
+salesValues.length
+?
+salesValues
+:
+[0],
+
+
+
+borderWidth:3,
+
+
+borderColor:
+"#1B5E20",
+
+
+backgroundColor:
+gradient,
+
+
+fill:true,
+
+
+tension:.55,
+
+
+pointRadius:0,
+
+
+pointHoverRadius:7,
+borderCapStyle:"round",
+
+
+
+}]
+
+
+
+},
+
+
+
+options:{
+
+
+responsive:true,
+
+
+maintainAspectRatio:false,
+
+
+
+plugins:{
+
+
+legend:{
+
+
+display:true,
+
+
+position:"bottom"
+
+
+},
+
+
+
+tooltip:{
+
+
+backgroundColor:
+"#143D22",
+
+
+padding:12
+
+
+}
+
+
+
+},
+
+
+
+
+scales:{
+
+
+y:{
+
+
+beginAtZero:true
+
+
+}
+
+
+
+}
+
+
+
+
+}
+
+
+
+}
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* ==========================
+CATEGORY PERFORMANCE
+========================== */
+
+
+
+const categoryCanvas =
+document.getElementById(
+"categoryChart"
+);
+
+
+
+if(categoryCanvas){
+
+
+new Chart(
+
+categoryCanvas,
+
+
+{
+
+
+type:"doughnut",
+
+
+data:{
+
+
+labels:
+categoryLabels.length
+?
+categoryLabels
+:
+["No Sales"],
+
+
+
+datasets:[{
+
+
+data:
+categoryValues,
+
+
+
+borderWidth:3
+
+
+}]
+
+
+},
+
+
+
+
+options:{
+
+
+responsive:true,
+
+
+maintainAspectRatio:false,
+
+
+cutout:"70%",
+
+
+
+plugins:{
+
+
+legend:{
+
+
+position:"bottom",
+
+
+labels:{
+
+
+padding:20
+
+
+}
+
+
+}
+
+
+
+}
+
+
+
+}
+
+
+
+}
+
+
+
+);
+
+
+
+}
+
+
+
+
+});
+
+
+
+</script>
+
+
+
+
+
+{% endblock %}

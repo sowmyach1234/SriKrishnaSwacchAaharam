@@ -1,0 +1,498 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Your Cart | Sri Krishna Swacch Aaharam
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<section class="premium-cart-page">
+
+
+<!-- =========================
+CART HERO HEADER
+========================= -->
+
+
+<div class="cart-hero">
+
+
+<div>
+
+<span class="cart-tag">
+🌿 Organic Basket
+</span>
+
+
+<h1>
+Your Shopping Cart
+</h1>
+
+
+<p>
+Review your selected natural products before completing your order.
+</p>
+
+
+</div>
+
+
+
+<div class="cart-status-card">
+
+<h3>
+Fresh & Natural
+</h3>
+
+<p>
+100% Organic Products
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+{% if cart_items %}
+
+
+
+<div class="cart-main-layout">
+
+
+
+
+
+<!-- =========================
+PRODUCT LIST
+========================= -->
+
+
+<div class="cart-products-section">
+
+
+
+<h2>
+🛒 Selected Products
+</h2>
+
+
+
+
+{% for item in cart_items %}
+
+
+
+<div class="premium-cart-card"
+data-cart-id="{{item.id}}">
+
+
+
+
+
+<!-- IMAGE -->
+
+
+<div class="cart-image-box">
+
+
+{% if item.product.image %}
+
+
+<img src="{{url_for(
+'static',
+filename='images/products/'+item.product.image
+)}}"
+alt="{{item.product.product_name}}">
+
+
+{% else %}
+
+<div class="image-placeholder">
+
+🌿
+
+</div>
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- DETAILS -->
+
+
+<div class="cart-product-info">
+
+
+<h2>
+{{item.product.product_name}}
+</h2>
+
+
+
+<p class="cart-category">
+
+{{item.product.category}}
+
+</p>
+
+
+
+
+
+<div class="cart-details-row">
+
+
+<span>
+₹{{item.product.price}}
+</span>
+
+
+<span class="weight-badge">
+
+⚖ {{item.weight}}
+
+</span>
+
+
+</div>
+
+
+
+
+
+
+<div class="quantity-area">
+
+
+<label>
+Quantity
+</label>
+
+
+
+<div class="quantity-box">
+
+
+<button
+class="cart-minus"
+data-id="{{item.id}}">
+−
+</button>
+
+
+
+
+<span id="quantity-{{item.id}}">
+
+{{item.quantity}}
+
+</span>
+
+
+
+
+
+<button
+class="cart-plus"
+data-id="{{item.id}}">
++
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- PRICE -->
+
+
+<div class="cart-price-section">
+
+
+<p>
+Subtotal
+</p>
+
+
+<h2 id="subtotal-{{item.id}}">
+
+₹{{item.subtotal}}
+
+</h2>
+
+
+
+
+
+<a href="{{url_for(
+'cart.remove_cart',
+id=item.id
+)}}"
+class="premium-remove-btn">
+
+
+🗑 Remove Item
+
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- =========================
+ORDER SUMMARY
+========================= -->
+
+
+<div class="premium-summary-card">
+
+
+
+<h2>
+Order Summary
+</h2>
+
+
+
+
+<div class="summary-line">
+
+
+<span>
+Total Items
+</span>
+
+
+<strong id="cart-total-items">
+
+{{total_items}}
+
+</strong>
+
+
+</div>
+
+
+
+
+
+<div class="summary-line">
+
+
+<span>
+Subtotal
+</span>
+
+
+<strong id="cart-grand-total">
+
+₹{{grand_total}}
+
+</strong>
+
+
+</div>
+
+
+
+
+
+<div class="summary-line delivery">
+
+
+<span>
+Delivery
+</span>
+
+
+<strong>
+FREE
+</strong>
+
+
+</div>
+
+
+
+
+
+<hr>
+
+
+
+
+
+<div class="summary-total">
+
+
+<span>
+Total Amount
+</span>
+
+
+<h1 id="cart-final-total">
+
+₹{{grand_total}}
+
+</h1>
+
+
+</div>
+
+
+
+
+
+
+
+<a href="{{url_for('cart.clear_cart')}}"
+class="clear-cart-btn">
+
+
+🗑 Empty Organic Basket
+
+
+</a>
+
+
+
+
+
+
+<a href="/checkout"
+class="checkout-premium-btn">
+
+
+Proceed To Checkout →
+
+</a>
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+{% else %}
+
+
+
+
+<!-- EMPTY CART -->
+
+
+<div class="empty-cart-box">
+
+
+<div>
+
+🛒
+
+</div>
+
+
+<h1>
+Your Cart Is Empty
+</h1>
+
+
+<p>
+Add organic products and start your healthy journey.
+</p>
+
+
+
+<a href="/products">
+
+Explore Products
+
+</a>
+
+
+</div>
+
+
+
+{% endif %}
+
+
+
+
+
+</section>
+
+
+
+
+{% endblock %}

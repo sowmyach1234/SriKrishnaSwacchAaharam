@@ -1,0 +1,135 @@
+{% extends "admin/admin_base.html" %}
+
+
+
+
+{% block title %}
+
+Update Stock
+
+{% endblock %}
+
+
+
+
+
+{% block page_title %}
+
+Update Product Stock
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="panel stock-update-card">
+
+
+
+<h2>
+📦 {{product.product_name}}
+</h2>
+
+
+
+<p>
+
+Current Stock:
+
+<strong>
+{{product.stock}}
+</strong>
+
+</p>
+
+
+
+
+
+<form method="POST">
+
+
+
+
+
+<label>
+
+Quantity
+
+</label>
+
+
+
+<input
+
+type="number"
+
+name="quantity"
+
+required
+
+min="1"
+
+>
+
+
+
+
+
+<label>
+
+Action
+
+</label>
+
+
+
+<select name="action">
+
+
+<option value="add">
+
+Add Stock
+
+</option>
+
+
+<option value="remove">
+
+Remove Stock
+
+</option>
+
+
+</select>
+
+
+
+
+
+
+
+<button class="update-btn">
+
+Update Stock
+
+</button>
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+
+{% endblock %}

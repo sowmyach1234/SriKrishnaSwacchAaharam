@@ -1,0 +1,417 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}
+Executive Decision Center
+{% endblock %}
+
+{% block page_title %}
+Executive Decision Center
+{% endblock %}
+
+{% block content %}
+
+<div class="executive-page">
+
+    <!-- HERO -->
+    <section class="executive-header">
+
+        <div>
+
+            <h1>🧠 Executive Decision Center</h1>
+
+            <p>
+                AI Powered Business Intelligence &
+                Executive Recommendations
+            </p>
+
+        </div>
+
+        <div class="executive-score">
+
+            <span>Business Score</span>
+
+            <h1>{{ summary.score }}%</h1>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- KPI SECTION -->
+
+    <section class="executive-kpis">
+
+        <div class="executive-card">
+
+            <div class="executive-icon">
+                💰
+            </div>
+
+            <h3>Total Revenue</h3>
+
+            <h2>
+                ₹{{ "{:,.0f}".format(summary.revenue) }}
+            </h2>
+
+        </div>
+
+
+
+        <div class="executive-card">
+
+            <div class="executive-icon">
+                🛒
+            </div>
+
+            <h3>Total Orders</h3>
+
+            <h2>
+                {{ summary.orders }}
+            </h2>
+
+        </div>
+
+
+
+        <div class="executive-card">
+
+            <div class="executive-icon">
+                👥
+            </div>
+
+            <h3>Total Customers</h3>
+
+            <h2>
+                {{ summary.customers }}
+            </h2>
+
+        </div>
+
+
+
+        <div class="executive-card">
+
+            <div class="executive-icon">
+                📦
+            </div>
+
+            <h3>Total Products</h3>
+
+            <h2>
+                {{ total_products }}
+            </h2>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- STOCK HEALTH -->
+
+    <section class="executive-stock">
+
+        <div class="stock-box healthy">
+
+            <h3>Healthy Stock</h3>
+
+            <h1>{{ healthy_stock }}</h1>
+
+        </div>
+
+        <div class="stock-box warning">
+
+            <h3>Low Stock</h3>
+
+            <h1>{{ low_stock }}</h1>
+
+        </div>
+
+        <div class="stock-box danger">
+
+            <h3>Out of Stock</h3>
+
+            <h1>{{ out_of_stock }}</h1>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- AI RECOMMENDATIONS -->
+
+    <section class="executive-panel">
+
+        <h2>🤖 Executive AI Recommendations</h2>
+
+        <div class="recommendation-grid">
+
+            {% for item in summary.recommendations %}
+
+            <div class="recommendation-card">
+
+                <div class="recommendation-icon">
+
+                    {{ item.icon }}
+
+                </div>
+
+                <div>
+
+                    <h3>
+
+                        {{ item.title }}
+
+                    </h3>
+
+                    <p>
+
+                        {{ item.message }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</div>
+
+
+
+<style>
+
+.executive-page{
+
+padding:20px;
+
+}
+
+.executive-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:linear-gradient(135deg,#1b5e20,#2e7d32);
+
+padding:35px;
+
+border-radius:24px;
+
+color:white;
+
+margin-bottom:35px;
+
+}
+
+.executive-score{
+
+background:rgba(255,255,255,.15);
+
+padding:25px;
+
+border-radius:18px;
+
+text-align:center;
+
+min-width:180px;
+
+backdrop-filter:blur(10px);
+
+}
+
+.executive-score h1{
+
+font-size:42px;
+
+margin-top:10px;
+
+}
+
+.executive-kpis{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+gap:22px;
+
+margin-bottom:35px;
+
+}
+
+.executive-card{
+
+background:white;
+
+border-radius:20px;
+
+padding:28px;
+
+text-align:center;
+
+box-shadow:0 12px 35px rgba(0,0,0,.08);
+
+transition:.3s;
+
+}
+
+.executive-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.executive-icon{
+
+font-size:36px;
+
+margin-bottom:15px;
+
+}
+
+.executive-stock{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:22px;
+
+margin-bottom:35px;
+
+}
+
+.stock-box{
+
+padding:28px;
+
+border-radius:18px;
+
+color:white;
+
+text-align:center;
+
+}
+
+.healthy{
+
+background:#2e7d32;
+
+}
+
+.warning{
+
+background:#f9a825;
+
+}
+
+.danger{
+
+background:#c62828;
+
+}
+
+.executive-panel{
+
+background:white;
+
+padding:30px;
+
+border-radius:22px;
+
+box-shadow:0 12px 35px rgba(0,0,0,.08);
+
+}
+
+.recommendation-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:20px;
+
+margin-top:25px;
+
+}
+
+.recommendation-card{
+
+display:flex;
+
+gap:18px;
+
+padding:22px;
+
+background:#f8fff8;
+
+border-radius:18px;
+
+border-left:6px solid #2e7d32;
+
+transition:.3s;
+
+}
+
+.recommendation-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 12px 30px rgba(0,0,0,.10);
+
+}
+
+.recommendation-icon{
+
+font-size:34px;
+
+}
+
+.recommendation-card h3{
+
+margin-bottom:8px;
+
+color:#1b5e20;
+
+}
+
+.recommendation-card p{
+
+color:#666;
+
+line-height:1.6;
+
+}
+
+@media(max-width:900px){
+
+.executive-header{
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.executive-stock{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

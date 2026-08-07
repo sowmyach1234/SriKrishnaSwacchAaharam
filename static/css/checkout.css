@@ -1,0 +1,415 @@
+/* =====================================================
+   PREMIUM CHECKOUT DESIGN
+   Sri Krishna Swacch Aaharam
+===================================================== */
+
+
+.checkout-page{
+
+    background:#f8f5ed;
+
+    min-height:100vh;
+
+    padding:60px 30px;
+
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+
+.checkout-container{
+
+    max-width:1200px;
+
+    margin:auto;
+
+}
+
+
+
+
+
+/* ==========================
+   HEADER
+========================== */
+
+
+.checkout-header{
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+}
+
+
+
+.checkout-header h1{
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:48px;
+
+    color:#1B5E20;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.checkout-header p{
+
+    color:#666;
+
+    font-size:16px;
+
+}
+
+
+
+
+
+
+/* ==========================
+   MAIN LAYOUT
+========================== */
+
+
+.checkout-layout{
+
+    display:grid;
+
+    grid-template-columns:1.3fr .9fr;
+
+    gap:35px;
+
+}
+
+
+
+
+
+/* ==========================
+   FORM CARD
+========================== */
+
+
+.checkout-form-card,
+
+.checkout-summary{
+
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    box-shadow:
+
+    0 15px 35px rgba(0,0,0,.08);
+
+}
+
+
+
+.checkout-form-card h2,
+
+.checkout-summary h2{
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:34px;
+
+    color:#143D22;
+
+    margin-bottom:30px;
+
+}
+
+
+
+
+
+/* ==========================
+   INPUTS
+========================== */
+
+
+.input-group{
+
+    margin-bottom:25px;
+
+}
+
+
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#555;
+
+    font-weight:500;
+
+}
+
+
+
+.input-group input,
+
+.input-group textarea{
+
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+
+
+.input-group input:focus,
+
+.input-group textarea:focus{
+
+
+    border-color:#1B5E20;
+
+    box-shadow:
+
+    0 0 0 3px rgba(27,94,32,.1);
+
+}
+
+
+
+
+
+
+
+/* ==========================
+   ORDER BUTTON
+========================== */
+
+
+.place-order-btn{
+
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#1B5E20;
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+
+}
+
+
+
+.place-order-btn:hover{
+
+
+    background:#2E7D32;
+
+    transform:translateY(-3px);
+
+
+}
+
+
+
+
+
+
+
+
+/* ==========================
+   PRODUCTS
+========================== */
+
+
+.checkout-product{
+
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px 0;
+
+    border-bottom:1px solid #eee;
+
+
+}
+
+
+
+.checkout-product img{
+
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:15px;
+
+    object-fit:cover;
+
+}
+
+
+
+.checkout-product div{
+
+    flex:1;
+
+}
+
+
+
+.checkout-product h3{
+
+
+    font-size:17px;
+
+    color:#143D22;
+
+    margin:0;
+
+}
+
+
+
+.checkout-product p{
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+
+
+.checkout-product span{
+
+
+    color:#1B5E20;
+
+    font-weight:600;
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   TOTAL
+========================== */
+
+
+.checkout-divider{
+
+
+    height:1px;
+
+    background:#ddd;
+
+    margin:25px 0;
+
+
+}
+
+
+
+
+.checkout-total{
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:22px;
+
+    color:#143D22;
+
+
+}
+
+
+
+.checkout-total strong{
+
+
+    color:#1B5E20;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+
+@media(max-width:900px){
+
+
+.checkout-layout{
+
+
+    grid-template-columns:1fr;
+
+
+}
+
+
+
+.checkout-header h1{
+
+
+    font-size:38px;
+
+
+}
+
+
+
+}

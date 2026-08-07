@@ -1,0 +1,397 @@
+{% extends "admin/admin_base.html" %}
+
+
+{% block title %}
+Add Product
+{% endblock %}
+
+
+
+{% block page_title %}
+Add Product
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<section class="product-form-container">
+
+
+
+<!-- HEADER -->
+
+<div class="product-form-header">
+
+
+<div>
+
+<h1>
+🌿 Add New Product
+</h1>
+
+
+<p>
+Create and manage your organic product inventory
+</p>
+
+
+</div>
+
+
+<div class="product-status">
+
+<span>
+● Inventory Ready
+</span>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- FORM CARD -->
+
+
+<div class="premium-product-card">
+
+
+
+<form method="POST"
+      enctype="multipart/form-data">
+
+
+
+
+
+<div class="form-grid">
+
+
+
+
+
+<!-- PRODUCT NAME -->
+
+<div class="form-group">
+
+
+<label>
+Product Name
+</label>
+
+
+<input
+type="text"
+name="product_name"
+placeholder="Enter product name"
+required>
+
+
+</div>
+
+
+
+
+
+<!-- CATEGORY -->
+
+<div class="form-group">
+
+
+<label>
+Category
+</label>
+
+
+<select name="category" required>
+
+
+<option value="">
+Select Category
+</option>
+
+
+<option>
+Cold Pressed Oils
+</option>
+
+
+<option>
+Traditional Pickles
+</option>
+
+
+<option>
+Organic Millets
+</option>
+
+
+<option>
+A2 Cow Ghee
+</option>
+
+
+<option>
+Millet Rice
+</option>
+
+
+<option>
+Dry Fruits
+</option>
+
+
+<option>
+Organic Sweets
+</option>
+
+
+<option>
+Healthy Snacks
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+<!-- PRICE -->
+
+<div class="form-group">
+
+
+<label>
+Price (₹)
+</label>
+
+
+<input
+type="number"
+name="price"
+step="0.01"
+placeholder="Enter price"
+required>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- STOCK -->
+
+<div class="form-group">
+
+
+<label>
+Stock Quantity
+</label>
+
+
+<input
+type="number"
+name="stock"
+placeholder="Enter stock quantity"
+required>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- DESCRIPTION -->
+
+
+<div class="form-group full-width">
+
+
+<label>
+Description
+</label>
+
+
+<textarea
+name="description"
+placeholder="Enter product description">
+</textarea>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- IMAGE UPLOAD -->
+
+
+<div class="form-group full-width">
+
+
+<label>
+Product Image
+</label>
+
+
+<input
+type="file"
+name="image"
+id="imageInput"
+accept="image/*">
+
+
+
+<div class="image-preview-box">
+
+
+<img id="imagePreview"
+src=""
+style="display:none;">
+
+
+<span id="previewText">
+Image preview will appear here
+</span>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- BUTTONS -->
+
+
+<div class="form-actions">
+
+
+<a href="{{ url_for('admin_products.product_list') }}"
+class="cancel-btn">
+
+Cancel
+
+</a>
+
+
+
+<button type="submit"
+class="save-product-btn">
+
+Save Product
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<script>
+
+
+const imageInput =
+document.getElementById(
+"imageInput"
+);
+
+
+const imagePreview =
+document.getElementById(
+"imagePreview"
+);
+
+
+const previewText =
+document.getElementById(
+"previewText"
+);
+
+
+
+imageInput.onchange=function(){
+
+
+const file=this.files[0];
+
+
+if(file){
+
+
+imagePreview.src =
+URL.createObjectURL(file);
+
+
+imagePreview.style.display="block";
+
+
+previewText.style.display="none";
+
+
+}
+
+
+}
+
+
+
+</script>
+
+
+
+
+{% endblock %}

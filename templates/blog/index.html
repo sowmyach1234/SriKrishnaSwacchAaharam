@@ -1,0 +1,124 @@
+{% extends "layouts/base.html" %}
+
+
+
+{% block content %}
+
+
+
+<section class="blog-page">
+
+
+
+
+
+<div class="blog-header">
+
+
+<span>
+🌿 Organic Knowledge
+</span>
+
+
+<h1>
+Our Latest Stories
+</h1>
+
+
+<p>
+Explore traditional food wisdom, healthy living tips and organic farming stories.
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="blog-grid">
+
+
+
+{% for blog in blogs %}
+
+
+
+<div class="blog-card">
+
+
+
+
+
+<div class="blog-image">
+
+
+<img src="{{url_for(
+'static',
+filename='images/'+blog.image
+)}}">
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="blog-content">
+
+
+<h2>
+
+{{blog.title}}
+
+</h2>
+
+
+
+<p>
+
+{{blog.description}}
+
+</p>
+
+
+
+<a href="/blog/{{blog.id}}">
+Read More →
+</a>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+{% endblock %}

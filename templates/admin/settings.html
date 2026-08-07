@@ -1,0 +1,661 @@
+{% extends "admin/admin_base.html" %}
+
+
+{% block title %}
+Settings
+{% endblock %}
+
+
+
+{% block page_title %}
+Settings Center
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+<section class="settings-container">
+
+
+
+<!-- HEADER -->
+
+<div class="settings-hero">
+
+
+<div>
+
+<h1>
+⚙️ Settings Center
+</h1>
+
+
+<p>
+Manage your admin profile, store configuration and system preferences
+</p>
+
+
+</div>
+
+
+
+<div class="settings-status">
+
+<span>
+● System Active
+</span>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- SETTINGS GRID -->
+
+<div class="settings-grid">
+
+
+
+
+
+<!-- ADMIN PROFILE -->
+
+<div class="premium-setting-card">
+
+
+<div class="setting-icon">
+👤
+</div>
+
+
+<div>
+
+<h2>
+Admin Profile
+</h2>
+
+
+<p>
+Manage administrator information
+</p>
+
+</div>
+
+
+
+
+<div class="setting-fields">
+
+
+<label>
+Username
+</label>
+
+<input 
+value="{{ admin_username }}"
+readonly>
+
+
+
+<label>
+Role
+</label>
+
+<input
+value="{{ admin_role }}"
+readonly>
+
+
+
+<label>
+Status
+</label>
+
+<input
+value="{{ admin_status }}"
+readonly>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- STORE CONFIGURATION -->
+
+
+<div class="premium-setting-card">
+
+
+<div class="setting-icon">
+🌿
+</div>
+
+
+<div>
+
+<h2>
+Store Configuration
+</h2>
+
+
+<p>
+Manage business information
+</p>
+
+</div>
+
+
+
+
+
+<div class="setting-fields">
+
+
+<label>
+Store Name
+</label>
+
+<input
+value="{{ store_name }}"
+readonly>
+
+
+
+<label>
+Business Type
+</label>
+
+<input
+value="{{ business_type }}"
+readonly>
+
+
+
+<label>
+Location
+</label>
+
+<input
+value="{{ store_location }}"
+readonly>
+
+
+
+<label>
+Contact
+</label>
+
+<input
+value="{{ store_contact }}"
+readonly>
+
+
+
+<label>
+Email
+</label>
+
+<input
+value="{{ store_email }}"
+readonly>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- NOTIFICATION SETTINGS -->
+
+
+<div class="premium-setting-card">
+
+
+<div class="setting-icon">
+🔔
+</div>
+
+
+<div>
+
+<h2>
+Notification Preferences
+</h2>
+
+
+<p>
+Control system alerts
+</p>
+
+</div>
+
+
+
+
+<form method="POST"
+action="{{ url_for('settings.update_notifications') }}">
+
+
+
+<div class="toggle-list">
+
+
+
+<div class="toggle-item">
+
+<span>
+Low Stock Alerts
+</span>
+
+
+<input 
+type="checkbox"
+name="low_stock"
+
+{% if notification_settings.low_stock %}
+checked
+{% endif %}
+
+>
+
+</div>
+
+
+
+
+
+<div class="toggle-item">
+
+<span>
+Order Notifications
+</span>
+
+
+<input
+type="checkbox"
+name="order_alerts"
+
+{% if notification_settings.order_alerts %}
+checked
+{% endif %}
+
+>
+
+</div>
+
+
+
+
+
+<div class="toggle-item">
+
+<span>
+Customer Alerts
+</span>
+
+
+<input
+type="checkbox"
+name="customer_alerts"
+
+{% if notification_settings.customer_alerts %}
+checked
+{% endif %}
+
+>
+
+</div>
+
+
+
+</div>
+
+
+
+
+<button class="premium-setting-btn">
+
+Save Preferences
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- SECURITY -->
+
+
+<div class="premium-setting-card">
+
+
+<div class="setting-icon">
+🔐
+</div>
+
+
+<div>
+
+<h2>
+Security
+</h2>
+
+
+<p>
+Protect administrator access
+</p>
+
+</div>
+
+
+
+
+<a href="{{ url_for('settings.change_password') }}"
+class="premium-setting-btn">
+
+Change Password
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- SYSTEM INFORMATION -->
+
+
+<div class="premium-setting-card">
+
+
+<div class="setting-icon">
+💻
+</div>
+
+
+
+<div>
+
+<h2>
+System Information
+</h2>
+
+
+<p>
+Application monitoring details
+</p>
+
+</div>
+
+
+
+
+
+
+<div class="system-info">
+
+
+
+<p>
+
+<strong>
+Application:
+</strong>
+
+{{ system_info.application }}
+
+</p>
+
+
+
+
+<p>
+
+<strong>
+Framework:
+</strong>
+
+{{ system_info.framework }}
+
+</p>
+
+
+
+
+<p>
+
+<strong>
+Database:
+</strong>
+
+{{ system_info.database }}
+
+</p>
+
+
+
+
+<p>
+
+<strong>
+Python Version:
+</strong>
+
+{{ system_info.python_version }}
+
+</p>
+
+
+
+
+<p>
+
+<strong>
+Environment:
+</strong>
+
+{{ system_info.environment }}
+
+</p>
+
+
+
+
+<p>
+
+<strong>
+Status:
+</strong>
+
+{{ system_info.status }}
+
+</p>
+
+
+
+
+<hr>
+
+
+
+<p>
+
+📦 Products:
+
+{{ system_info.products }}
+
+</p>
+
+
+
+<p>
+
+🛒 Orders:
+
+{{ system_info.orders }}
+
+</p>
+
+
+
+<p>
+
+👥 Customers:
+
+{{ system_info.customers }}
+
+</p>
+
+
+
+</div>
+
+
+
+</div>
+
+
+<!-- ===============================
+BACKUP MANAGEMENT
+================================ -->
+
+
+<div class="premium-setting-card">
+
+
+<div class="setting-icon">
+💾
+</div>
+
+
+
+<div>
+
+<h2>
+Backup Management
+</h2>
+
+
+<p>
+Database backup and recovery
+</p>
+
+</div>
+
+
+
+
+<div class="system-info">
+
+
+<p>
+
+<strong>
+Database:
+</strong>
+
+{{ backup_info.database }}
+
+</p>
+
+
+
+<p>
+
+<strong>
+Status:
+</strong>
+
+{{ backup_info.status }}
+
+</p>
+
+
+
+
+<p>
+
+<strong>
+Last Backup:
+</strong>
+
+{{ backup_info.last_backup }}
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+<a href="{{ url_for('settings.download_backup') }}"
+
+class="premium-setting-btn">
+
+
+⬇ Download Backup
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+<!-- END SETTINGS GRID -->
+
+
+
+</section>
+<!-- END SETTINGS CONTAINER -->
+
+
+
+{% endblock %}

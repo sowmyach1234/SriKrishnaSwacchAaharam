@@ -1,0 +1,177 @@
+{% extends "admin/admin_base.html" %}
+
+
+
+{% block title %}
+
+Stock History
+
+{% endblock %}
+
+
+
+
+{% block page_title %}
+
+Inventory History
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+<div class="panel">
+
+
+<h2>
+
+📦 Stock Movement History
+
+</h2>
+
+
+
+
+<table class="premium-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Product
+</th>
+
+
+<th>
+Old Stock
+</th>
+
+
+<th>
+New Stock
+</th>
+
+
+<th>
+Change
+</th>
+
+
+<th>
+Date
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+{% for item in histories %}
+
+
+<tr>
+
+
+<td>
+
+{{item.product_name}}
+
+</td>
+
+
+<td>
+
+{{item.old_stock}}
+
+</td>
+
+
+<td>
+
+{{item.new_stock}}
+
+</td>
+
+
+<td>
+
+
+{% if item.change > 0 %}
+
+
+<span class="stock-badge success">
+
++{{item.change}}
+
+</span>
+
+
+{% elif item.change < 0 %}
+
+
+<span class="stock-badge danger">
+
+{{item.change}}
+
+</span>
+
+
+{% else %}
+
+
+<span class="stock-badge">
+
+0
+
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+
+<td>
+
+{{item.updated_at.strftime('%d-%m-%Y %H:%M')}}
+
+</td>
+
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+{% endblock %}

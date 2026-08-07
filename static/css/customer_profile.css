@@ -1,0 +1,1357 @@
+/* =========================================================
+   SRI KRISHNA SWACCH AAHARAM
+   PREMIUM AI CUSTOMER INTELLIGENCE PROFILE
+
+   Stage 15.4.3.2
+========================================================= */
+
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+
+.customer-ai-profile {
+
+    padding:35px;
+
+    animation:
+    profileReveal .6s ease;
+
+}
+
+
+
+@keyframes profileReveal {
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(25px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+
+
+
+
+
+/* =========================================================
+   PREMIUM PROFILE HERO
+========================================================= */
+
+
+.profile-hero {
+
+
+    position:relative;
+
+    overflow:hidden;
+
+
+    display:flex;
+
+    align-items:center;
+
+
+    gap:35px;
+
+
+    padding:45px;
+
+
+    border-radius:32px;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #ffffff,
+        #eef7e8
+    );
+
+
+    box-shadow:
+
+    0 25px 60px rgba(
+        35,
+        77,
+        43,
+        .12
+    );
+
+
+    margin-bottom:40px;
+
+
+}
+
+
+
+
+.profile-hero::before {
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    width:300px;
+
+    height:300px;
+
+
+    right:-100px;
+
+    top:-100px;
+
+
+    background:#d8ebcf;
+
+
+    border-radius:50%;
+
+
+    opacity:.5;
+
+
+}
+
+
+
+
+
+
+.profile-avatar-large {
+
+
+    width:130px;
+
+    height:130px;
+
+
+    min-width:130px;
+
+
+    border-radius:50%;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    font-family:
+    "Cormorant Garamond";
+
+
+    font-size:55px;
+
+
+    font-weight:700;
+
+
+    color:white;
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #2f6b3f,
+        #174522
+    );
+
+
+    border:
+
+    8px solid white;
+
+
+    box-shadow:
+
+    0 0 0 10px rgba(
+        47,
+        107,
+        63,
+        .15
+    );
+
+
+    z-index:1;
+
+
+}
+
+
+
+
+
+
+.profile-main-info {
+
+
+    z-index:1;
+
+
+}
+
+
+
+.profile-main-info h1 {
+
+
+    font-family:
+
+    "Cormorant Garamond";
+
+
+    font-size:45px;
+
+
+    color:#234d2b;
+
+
+    margin-bottom:15px;
+
+
+}
+
+
+
+
+
+.profile-main-info p {
+
+
+    color:#5d685f;
+
+
+    font-size:16px;
+
+
+    margin:8px 0;
+
+
+}
+
+
+
+
+
+
+
+.customer-badge {
+
+
+    margin-left:auto;
+
+
+    z-index:2;
+
+
+}
+
+
+
+.customer-badge span {
+
+
+    display:inline-block;
+
+
+    padding:14px 28px;
+
+
+    border-radius:40px;
+
+
+    font-weight:700;
+
+
+    letter-spacing:.5px;
+
+
+}
+
+
+
+
+
+.customer-badge .premium {
+
+
+    background:#fff1b8;
+
+
+    color:#805f00;
+
+
+}
+
+
+
+.customer-badge .regular {
+
+
+    background:#dff1ff;
+
+
+    color:#17608a;
+
+
+}
+
+
+
+.customer-badge .new {
+
+
+    background:#eeeeee;
+
+
+    color:#555;
+
+
+}
+
+
+
+
+
+
+
+/* =========================================================
+ AI INTELLIGENCE SECTION
+========================================================= */
+
+
+
+.ai-cards {
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+    repeat(4,1fr);
+
+
+    gap:25px;
+
+
+    margin-bottom:40px;
+
+
+}
+
+
+
+
+
+.ai-card {
+
+
+    position:relative;
+
+
+    background:white;
+
+
+    padding:30px;
+
+
+    border-radius:28px;
+
+
+    border:
+
+    1px solid #edf3e8;
+
+
+    overflow:hidden;
+
+
+    transition:.35s;
+
+
+    box-shadow:
+
+
+    0 15px 35px rgba(
+        0,
+        0,
+        0,
+        .07
+    );
+
+
+}
+
+
+
+
+
+.ai-card::after {
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    width:120px;
+
+
+    height:120px;
+
+
+    right:-40px;
+
+
+    bottom:-40px;
+
+
+    background:#eef7e8;
+
+
+    border-radius:50%;
+
+
+}
+
+
+
+.ai-card:hover {
+
+
+    transform:
+    translateY(-10px);
+
+
+    box-shadow:
+
+
+    0 25px 50px rgba(
+        47,
+        107,
+        63,
+        .18
+    );
+
+
+}
+
+
+
+
+.ai-icon {
+
+
+    font-size:40px;
+
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+
+.ai-card h3 {
+
+
+    color:#657267;
+
+
+    font-size:15px;
+
+
+    text-transform:uppercase;
+
+
+    letter-spacing:1px;
+
+
+}
+
+
+
+
+.ai-card h1 {
+
+
+    font-size:45px;
+
+
+    color:#2f6b3f;
+
+
+}
+
+
+
+.ai-card h2 {
+
+
+    font-size:22px;
+
+
+    color:#234d2b;
+
+
+}
+
+
+
+
+
+
+/* =========================================================
+ CUSTOMER VALUE KPI
+========================================================= */
+
+
+.profile-kpis {
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+    repeat(3,1fr);
+
+
+    gap:30px;
+
+
+    margin-bottom:40px;
+
+
+}
+
+
+
+
+
+.kpi-box {
+
+
+    position:relative;
+
+
+    background:white;
+
+
+    padding:30px;
+
+
+    border-radius:25px;
+
+
+    overflow:hidden;
+
+
+    box-shadow:
+
+
+    0 15px 35px rgba(
+        0,
+        0,
+        0,
+        .08
+    );
+
+
+}
+
+
+
+
+
+.kpi-box::before {
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    left:0;
+
+
+    top:0;
+
+
+    width:6px;
+
+
+    height:100%;
+
+
+    background:#2f6b3f;
+
+
+}
+
+
+
+
+
+.kpi-box h4 {
+
+
+    color:#777;
+
+
+    font-size:15px;
+
+
+}
+
+
+
+.kpi-box h2 {
+
+
+    color:#234d2b;
+
+
+    font-size:34px;
+
+
+}
+
+
+
+
+
+.kpi-box .date {
+
+
+    font-size:22px;
+
+
+}
+
+
+
+
+
+
+
+/* =========================================================
+ AI RECOMMENDATION ENGINE
+========================================================= */
+
+
+
+.ai-recommendation-panel,
+
+
+.purchase-section {
+
+
+    background:white;
+
+
+    padding:40px;
+
+
+    border-radius:30px;
+
+
+    margin-bottom:40px;
+
+
+    box-shadow:
+
+
+    0 20px 45px rgba(
+        0,
+        0,
+        0,
+        .07
+    );
+
+
+}
+
+
+
+
+.section-title h2 {
+
+
+    font-family:
+    "Cormorant Garamond";
+
+
+    font-size:35px;
+
+
+    color:#234d2b;
+
+
+}
+
+
+
+
+.section-title p {
+
+
+    color:#777;
+
+
+}
+
+
+
+
+
+
+.recommendation-grid {
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+    repeat(3,1fr);
+
+
+    gap:25px;
+
+
+    margin-top:30px;
+
+
+}
+
+
+
+
+
+.recommend-card {
+
+
+    background:
+
+
+    linear-gradient(
+        135deg,
+        #f7fbf4,
+        #ffffff
+    );
+
+
+    padding:35px;
+
+
+    text-align:center;
+
+
+    border-radius:25px;
+
+
+    border:
+
+    1px solid #e3efdc;
+
+
+    transition:.35s;
+
+
+}
+
+
+
+
+.recommend-card:hover {
+
+
+    transform:
+    translateY(-10px);
+
+
+    border-color:#2f6b3f;
+
+
+}
+
+
+
+
+
+.recommend-card h3 {
+
+
+    color:#2f6b3f;
+
+
+    font-size:22px;
+
+
+}
+
+
+
+
+
+/* =========================================================
+ PURCHASE HISTORY
+========================================================= */
+
+
+
+.premium-table {
+
+
+    width:100%;
+
+
+    border-collapse:separate;
+
+
+    border-spacing:0 12px;
+
+
+}
+
+
+
+.premium-table th {
+
+
+    background:#eff7eb;
+
+
+    padding:18px;
+
+
+    color:#355b3d;
+
+
+}
+
+
+
+
+
+.premium-table td {
+
+
+    padding:18px;
+
+
+    background:#ffffff;
+
+
+    border-bottom:
+
+    1px solid #eeeeee;
+
+
+}
+
+
+
+
+.premium-table tbody tr {
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+.premium-table tbody tr:hover {
+
+
+    transform:scale(1.01);
+
+
+    background:#f7fbf4;
+
+
+}
+
+
+
+
+.status {
+
+
+    background:#e5f5e8;
+
+
+    color:#2f6b3f;
+
+
+    padding:8px 18px;
+
+
+    border-radius:30px;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+
+
+.view-button {
+
+
+    background:#2f6b3f;
+
+
+    color:white;
+
+
+    padding:10px 22px;
+
+
+    border-radius:30px;
+
+
+    text-decoration:none;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+.view-button:hover {
+
+
+    background:#174522;
+
+
+    transform:translateY(-3px);
+
+
+}
+
+
+
+
+
+/* =========================================================
+ RESPONSIVE
+========================================================= */
+
+
+@media(max-width:1200px){
+
+
+.ai-cards{
+
+
+grid-template-columns:
+repeat(2,1fr);
+
+
+}
+
+
+
+}
+
+
+
+
+@media(max-width:900px){
+
+
+.profile-hero{
+
+
+flex-direction:column;
+
+text-align:center;
+
+
+}
+
+
+
+.customer-badge{
+
+
+margin:auto;
+
+
+}
+
+
+
+.profile-kpis,
+
+
+.recommendation-grid{
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.customer-ai-profile{
+
+
+padding:15px;
+
+
+}
+
+
+
+.ai-cards{
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+
+.profile-main-info h1{
+
+
+font-size:35px;
+
+
+}
+
+
+.purchase-section{
+
+
+overflow-x:auto;
+
+
+}
+
+
+
+.premium-table{
+
+
+min-width:750px;
+
+
+}
+
+
+
+}
+
+/* =====================================================
+   STAGE 15.4.3.3 CUSTOMER BEHAVIOUR ANALYTICS
+===================================================== */
+
+
+
+.behaviour-section,
+.value-section,
+.chart-section{
+
+
+background:white;
+
+padding:40px;
+
+border-radius:30px;
+
+margin-bottom:40px;
+
+
+box-shadow:
+
+0 20px 45px rgba(
+0,
+0,
+0,
+.07
+);
+
+
+}
+
+
+
+
+
+.behaviour-grid{
+
+
+display:grid;
+
+
+grid-template-columns:
+
+repeat(4,1fr);
+
+
+gap:25px;
+
+
+margin-top:30px;
+
+
+}
+
+
+
+
+
+.behaviour-card{
+
+
+background:
+
+linear-gradient(
+135deg,
+#f5faf1,
+white
+);
+
+
+padding:30px;
+
+
+border-radius:25px;
+
+
+text-align:center;
+
+
+border:
+
+1px solid #e3efdc;
+
+
+transition:.3s;
+
+
+}
+
+
+
+.behaviour-card:hover{
+
+
+transform:
+translateY(-8px);
+
+
+}
+
+
+
+
+.behaviour-icon{
+
+
+font-size:35px;
+
+
+margin-bottom:15px;
+
+
+}
+
+
+
+
+.behaviour-card h2{
+
+
+color:#2f6b3f;
+
+
+font-size:25px;
+
+
+}
+
+
+
+
+
+.value-grid{
+
+
+display:grid;
+
+
+grid-template-columns:
+
+repeat(3,1fr);
+
+
+gap:25px;
+
+
+}
+
+
+
+
+
+.value-card{
+
+
+padding:30px;
+
+
+background:#f7fbf4;
+
+
+border-radius:25px;
+
+
+text-align:center;
+
+
+}
+
+
+
+.value-card h1{
+
+
+color:#234d2b;
+
+
+}
+
+
+
+
+
+
+.chart-section{
+
+
+display:grid;
+
+
+grid-template-columns:
+
+1fr 1fr;
+
+
+gap:30px;
+
+
+}
+
+
+
+.chart-box{
+
+
+background:white;
+
+
+padding:30px;
+
+
+border-radius:30px;
+
+
+box-shadow:
+
+0 15px 35px rgba(
+0,
+0,
+0,
+.08
+);
+
+
+}
+
+
+
+.chart-box canvas{
+
+
+max-height:350px;
+
+
+}
+
+
+
+
+
+
+@media(max-width:1000px){
+
+
+.behaviour-grid,
+
+
+.value-grid,
+
+
+.chart-section{
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+}

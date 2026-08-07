@@ -1,0 +1,54 @@
+{% extends "layouts/base.html" %}
+
+
+
+{% block content %}
+
+
+<h1>
+Our Products
+</h1>
+
+
+
+<div class="category-container">
+
+
+{% for product in products %}
+
+
+<div class="category-card">
+
+
+<img src="{{url_for('static',
+filename='images/'+product.image)}}">
+
+
+<h3>
+{{product.name}}
+</h3>
+
+
+<p>
+₹ {{product.price}}
+</p>
+
+
+<p>
+Stock :
+{{product.stock}}
+</p>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+{% endblock %}

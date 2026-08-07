@@ -1,0 +1,981 @@
+{% extends "admin/admin_base.html" %}
+
+
+
+{% block title %}
+Customer Intelligence Center
+{% endblock %}
+
+
+
+{% block page_title %}
+Customer Intelligence Center
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="customer-page">
+
+
+
+<!-- =================================================
+HEADER
+================================================= -->
+
+
+<section class="customer-header">
+
+
+<div>
+
+
+<h1>
+🌿 Customer Intelligence Center
+</h1>
+
+
+<p>
+AI driven customer behaviour,
+loyalty and lifetime value analytics
+</p>
+
+
+</div>
+
+
+
+<div class="crm-badge">
+
+CRM + AI Analytics
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- =================================================
+ADVANCED KPI CARDS
+=================================================
+-->
+
+
+<section class="customer-kpis">
+
+
+
+<div class="customer-card">
+
+<div class="customer-icon green">
+👥
+</div>
+
+
+<div>
+
+<h3>
+Total Customers
+</h3>
+
+<h2>
+{{ total_customers }}
+</h2>
+
+
+<span>
+Registered Buyers
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="customer-card">
+
+
+<div class="customer-icon gold">
+💎
+</div>
+
+
+<div>
+
+<h3>
+Customer Lifetime Value
+</h3>
+
+
+<h2>
+₹{{ customer_lifetime_value }}
+</h2>
+
+
+<span>
+Average Customer Value
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="customer-card">
+
+
+<div class="customer-icon blue">
+🔁
+</div>
+
+
+<div>
+
+
+<h3>
+Retention Rate
+</h3>
+
+
+<h2>
+{{ retention_rate }}%
+</h2>
+
+
+<span>
+Returning Customers
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="customer-card">
+
+
+<div class="customer-icon purple">
+📊
+</div>
+
+
+<div>
+
+
+<h3>
+Purchase Frequency
+</h3>
+
+
+<h2>
+{{ purchase_frequency }}
+</h2>
+
+
+<span>
+Orders / Customer
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- =================================================
+AI CUSTOMER SCORE
+=================================================
+-->
+
+
+<section class="customer-panel">
+
+
+<div class="panel-heading">
+
+
+<h2>
+🤖 AI Customer Health Score
+</h2>
+
+
+<p>
+Business relationship strength indicator
+</p>
+
+
+</div>
+
+
+
+
+<div class="score-container">
+
+
+
+<div class="score-circle">
+
+
+<h1>
+{{ customer_value_score }}
+</h1>
+
+
+<span>
+/100
+</span>
+
+
+</div>
+
+
+
+<div>
+
+
+<h3>
+Customer Value Intelligence
+</h3>
+
+
+<p>
+Based on revenue,
+repeat purchases and retention behaviour.
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =================================================
+RFM SEGMENTATION
+=================================================
+-->
+
+
+<section class="customer-panel">
+
+
+<div class="panel-heading">
+
+
+<h2>
+🎯 RFM Customer Segmentation
+</h2>
+
+
+<p>
+Customer classification based on value behaviour
+</p>
+
+
+</div>
+
+
+
+
+<div class="segment-grid">
+
+
+
+<div class="segment-card premium">
+
+
+<h3>
+🏆 Champions
+</h3>
+
+
+<h1>
+{{ champions }}
+</h1>
+
+
+<span>
+High Value Buyers
+</span>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="segment-card regular">
+
+
+<h3>
+⭐ Loyal Customers
+</h3>
+
+
+<h1>
+{{ loyal_customers }}
+</h1>
+
+
+<span>
+Repeat Purchasers
+</span>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="segment-card new">
+
+
+<h3>
+🌱 New Customers
+</h3>
+
+
+<h1>
+{{ new_customers }}
+</h1>
+
+
+<span>
+Recently Joined
+</span>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="segment-card danger">
+
+
+<h3>
+⚠️ At Risk
+</h3>
+
+
+<h1>
+{{ at_risk_customers }}
+</h1>
+
+
+<span>
+Need Engagement
+</span>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =================================================
+CUSTOMER ANALYTICS CHARTS
+=================================================
+-->
+
+
+<section class="customer-chart-grid">
+
+
+
+
+
+<div class="customer-panel chart-panel">
+
+
+<h2>
+🥧 Customer Segments
+</h2>
+
+
+
+<div class="chart-container">
+
+
+<canvas id="segmentChart"></canvas>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="customer-panel chart-panel">
+
+
+<h2>
+🏆 Top Customer Spending
+</h2>
+
+
+
+<div class="chart-container">
+
+
+<canvas id="spendingChart"></canvas>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =================================================
+CUSTOMER VALUE DISTRIBUTION
+=================================================
+-->
+
+
+<section class="customer-panel chart-panel">
+
+
+<h2>
+📈 Customer Value Distribution
+</h2>
+
+
+
+<div class="chart-container">
+
+
+<canvas id="valueChart"></canvas>
+
+
+</div>
+
+
+
+</section>
+
+
+<!-- =====================================
+     AI PRODUCT RECOMMENDATIONS
+===================================== -->
+
+
+<section class="customer-panel ai-recommendation-panel">
+
+
+<div class="panel-heading">
+
+<h2>
+🤖 AI Product Recommendations
+</h2>
+
+
+<p>
+Personalized product suggestions based on customer behaviour
+</p>
+
+</div>
+
+
+
+
+
+<div class="ai-recommendation-grid">
+
+
+
+{% for ai in ai_recommendations %}
+
+
+
+<div class="ai-card">
+
+
+<div class="ai-header">
+
+
+<h3>
+{{ ai.customer }}
+</h3>
+
+
+<span>
+AI Suggestion
+</span>
+
+
+</div>
+
+
+
+
+
+<p class="ai-reason">
+
+{{ ai.insight }}
+
+</p>
+
+
+
+
+
+
+<ul>
+
+
+{% for product in ai.recommendations %}
+
+
+<li>
+
+🌿 {{ product.name }}
+
+<br>
+
+<small>
+
+{{ product.category }}
+
+-
+₹{{ product.price }}
+
+</small>
+
+
+</li>
+
+
+{% endfor %}
+
+
+
+</ul>
+
+
+
+
+</div>
+
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+<!-- =================================================
+CUSTOMER INSIGHTS
+=================================================
+-->
+
+
+<section class="customer-panel">
+
+
+<div class="panel-heading">
+
+<h2>
+💡 Customer Insights
+</h2>
+
+</div>
+
+
+
+
+<div class="insight-grid">
+
+
+
+<div class="insight-card">
+
+
+<h3>
+🏆 Highest Value Customer
+</h3>
+
+
+<h2>
+{{ highest_customer_name }}
+</h2>
+
+
+<p>
+₹{{ highest_customer_amount }}
+</p>
+
+
+</div>
+
+
+
+
+
+
+<div class="insight-card">
+
+
+<h3>
+🔥 Most Loyal Customer
+</h3>
+
+
+<h2>
+{{ loyal_customer_name }}
+</h2>
+
+
+<p>
+{{ loyal_customer_orders }}
+Orders
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =================================================
+CUSTOMER DATABASE
+=================================================
+-->
+
+
+<section class="customer-panel">
+
+
+<h2>
+👥 Customer Database
+</h2>
+
+
+
+
+<div class="table-wrapper">
+
+
+<table class="premium-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Customer
+</th>
+
+
+<th>
+Phone
+</th>
+
+
+<th>
+Orders
+</th>
+
+
+<th>
+Spent
+</th>
+
+
+<th>
+Segment
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+
+{% for customer in customers %}
+
+
+<tr>
+
+
+
+<td>
+
+<a href="{{ url_for(
+    'customer.customer_profile',
+    customer_id=customer.id
+) }}">
+
+{{ customer.name }}
+
+</a>
+
+</td>
+
+
+
+
+<td>
+{{ customer.phone or "-" }}
+</td>
+
+
+
+<td>
+{{ customer.total_orders }}
+</td>
+
+
+
+<td>
+₹{{ customer.total_spent }}
+</td>
+
+
+
+<td>
+
+<span class="segment-badge">
+
+{{ customer.segment }}
+
+</span>
+
+
+</td>
+
+
+</tr>
+
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="5">
+
+No Customer Data Available
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- =================================================
+CHART DATA
+=================================================
+-->
+
+
+<script>
+
+
+window.customerAnalytics = {
+
+
+segmentLabels:
+{{ segment_labels | tojson }},
+
+
+segmentValues:
+{{ segment_values | tojson }},
+
+
+
+spendingLabels:
+{{ spending_labels | tojson }},
+
+
+spendingValues:
+{{ spending_values | tojson }},
+
+
+
+valueLabels:
+{{ value_labels | tojson }},
+
+
+valueValues:
+{{ value_values | tojson }}
+
+
+};
+
+
+
+</script>
+
+
+
+
+
+<script src="{{ url_for(
+'static',
+filename='js/customer_analytics.js'
+) }}"></script>
+
+
+
+
+
+{% endblock %}

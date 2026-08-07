@@ -1,0 +1,697 @@
+{% extends "admin/admin_base.html" %}
+
+
+
+{% block title %}
+Inventory Analytics
+{% endblock %}
+
+
+
+
+{% block page_title %}
+Inventory Analytics Dashboard
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="inventory-analytics-page">
+
+
+
+
+
+
+<div class="analytics-header">
+
+
+<div>
+
+<h1>
+🌿 Inventory Intelligence Center
+</h1>
+
+
+<p>
+Analyze stock performance, product value and reorder requirements
+</p>
+
+
+</div>
+
+
+
+
+<a href="{{ url_for('admin_inventory.inventory_dashboard') }}"
+class="back-btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back To Inventory
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="analytics-cards">
+
+
+
+<div class="analytics-card">
+
+<div class="analytics-icon">
+📦
+</div>
+
+
+<div>
+
+<h4>
+Total Products
+</h4>
+
+
+<h2>
+{{ total_products }}
+</h2>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="analytics-card">
+
+<div class="analytics-icon">
+📊
+</div>
+
+
+<div>
+
+<h4>
+Total Stock Units
+</h4>
+
+
+<h2>
+{{ total_stock }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="analytics-card">
+
+<div class="analytics-icon">
+💰
+</div>
+
+
+<div>
+
+<h4>
+Inventory Value
+</h4>
+
+
+<h2>
+₹{{ "{:,.0f}".format(inventory_value) }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="analytics-card danger-card">
+
+
+<div class="analytics-icon">
+⚠️
+</div>
+
+
+<div>
+
+<h4>
+Reorder Required
+</h4>
+
+
+<h2>
+{{ low_stock_products }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="analytics-grid">
+
+
+
+
+
+<div class="analytics-panel">
+
+
+<h3>
+Stock Availability Status
+</h3>
+
+
+
+<div class="chart-box">
+
+
+
+<canvas id="stockChart"></canvas>
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="analytics-panel">
+
+
+<h3>
+Category Wise Stock
+</h3>
+
+
+
+
+
+<div class="chart-box">
+
+<canvas id="categoryChart"></canvas>
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="analytics-panel large-panel">
+
+
+<h3>
+🏆 Highest Inventory Value Products
+</h3>
+
+
+
+
+<table class="premium-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Product
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Stock
+</th>
+
+<th>
+Value
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+{% for product in valuable_products %}
+
+
+
+<tr>
+
+
+<td>
+{{product.product_name}}
+</td>
+
+
+
+<td>
+{{product.category}}
+</td>
+
+
+
+<td>
+{{product.stock}}
+</td>
+
+
+
+<td>
+₹{{ "{:,.0f}".format(product.stock * product.price) }}
+</td>
+
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="analytics-panel reorder-panel">
+
+
+<h3>
+🚨 Reorder Recommendation
+</h3>
+
+
+
+{% if reorder_products %}
+
+
+
+<div class="reorder-list">
+
+
+
+{% for product in reorder_products %}
+
+
+
+<div class="reorder-item">
+
+
+<div>
+
+
+<strong>
+{{product.product_name}}
+</strong>
+
+
+<p>
+
+Current Stock:
+{{product.stock}}
+
+</p>
+
+
+</div>
+
+
+
+<span>
+
+Order Soon
+
+</span>
+
+
+
+</div>
+
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+{% else %}
+
+
+
+<p class="success-message">
+
+All products have healthy stock levels 🌱
+
+</p>
+
+
+
+{% endif %}
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+
+const stockData =
+{{ stock_status|tojson }};
+
+
+
+new Chart(
+
+document.getElementById(
+"stockChart"
+),
+
+{
+
+
+type:"doughnut",
+
+
+data:{
+
+
+labels:[
+
+"Healthy Stock",
+"Low Stock",
+"Out Of Stock"
+
+],
+
+
+
+datasets:[{
+
+
+data:[
+
+stockData.available || 0,
+
+stockData.low_stock || 0,
+
+stockData.out_stock || 0
+
+],
+
+
+borderWidth:3
+
+
+}]
+
+
+},
+
+
+
+options:{
+
+
+responsive:true,
+
+
+maintainAspectRatio:false,
+
+
+cutout:"72%",
+
+
+
+plugins:{
+
+
+legend:{
+
+
+position:"bottom"
+
+
+}
+
+
+}
+
+
+
+}
+
+
+}
+
+);
+
+
+
+
+
+
+
+
+
+new Chart(
+
+document.getElementById(
+"categoryChart"
+),
+
+{
+
+
+type:"bar",
+
+
+data:{
+
+
+labels:
+{{ categories|tojson }},
+
+
+
+datasets:[{
+
+
+label:
+"Stock Quantity",
+
+
+data:
+{{ category_stock|tojson }},
+
+
+borderWidth:2
+
+
+}]
+
+
+
+},
+
+
+
+options:{
+
+
+responsive:true,
+
+
+maintainAspectRatio:false,
+
+
+
+plugins:{
+
+
+legend:{
+
+
+display:true,
+
+
+position:"bottom"
+
+
+}
+
+
+
+},
+
+
+
+scales:{
+
+
+y:{
+
+
+beginAtZero:true
+
+
+}
+
+
+
+}
+
+
+
+}
+
+
+
+}
+
+);
+
+
+
+});
+
+</script>
+
+
+
+
+{% endblock %}

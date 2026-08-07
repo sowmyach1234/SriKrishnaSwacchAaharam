@@ -1,0 +1,236 @@
+{% extends "layouts/base.html" %}
+
+
+{% block content %}
+
+
+<section class="products-page">
+
+
+<!-- PAGE HEADER -->
+
+<div class="products-banner">
+
+
+<span>
+100% Natural • Organic • Traditional
+</span>
+
+
+<h1>
+Pure Organic Products
+</h1>
+
+
+<p>
+Discover authentic food products prepared using
+traditional methods with natural ingredients.
+</p>
+
+
+</div>
+
+
+
+
+
+<!-- CATEGORY FILTER -->
+
+<div class="product-filter">
+
+
+<a href="/products">
+All Products
+</a>
+
+
+<a href="/products?category=Cold Pressed Oils">
+Oils
+</a>
+
+
+<a href="/products?category=Traditional Pickles">
+Pickles
+</a>
+
+
+<a href="/products?category=Millets">
+Millets
+</a>
+
+
+<a href="/products?category=A2 Cow Ghee">
+A2 Ghee
+</a>
+
+
+<a href="/products?category=Dry Fruits">
+Dry Fruits
+</a>
+
+
+<a href="/products?category=Organic Sweets">
+Sweets
+</a>
+
+
+</div>
+
+
+
+
+
+
+<!-- PRODUCTS -->
+
+<div class="premium-product-grid">
+
+
+{% for product in products %}
+
+
+<div class="shop-product-card">
+
+
+
+<div class="product-top">
+
+
+<span class="organic-label">
+
+🌿 Organic
+
+</span>
+
+
+
+<button 
+class="wishlist wishlist-btn"
+data-id="{{product.id}}">
+
+
+♡
+
+</button>
+
+
+
+</div>
+
+
+<div class="product-image">
+
+
+<img src="{{url_for(
+'static',
+filename='images/products/' + product.image
+)}}"
+alt="{{product.product_name}}">
+
+
+</div>
+
+
+
+
+
+<div class="product-info">
+
+
+<p class="product-category">
+
+{{product.category}}
+
+</p>
+
+
+
+<h2>
+
+{{product.product_name}}
+
+</h2>
+
+
+
+<div class="stars">
+
+★★★★★
+
+</div>
+
+
+
+<h3>
+
+₹ {{product.price}}
+
+</h3>
+
+
+
+<p class="stock">
+
+Available: {{product.stock}}
+
+</p>
+
+
+
+
+<div class="product-actions">
+
+
+<a href="/product/{{product.id}}"
+class="view-details-btn">
+
+View Details
+
+</a>
+
+
+
+{% if product.stock > 0 %}
+
+<button
+class="premium-cart-btn add-cart-btn"
+data-id="{{product.id}}">
+
+🛒 Add To Cart
+
+</button>
+
+{% else %}
+
+<button
+class="premium-cart-btn disabled-cart-btn"
+disabled>
+
+❌ Out of Stock
+
+</button>
+
+{% endif %}
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+</section>
+
+
+{% endblock %}

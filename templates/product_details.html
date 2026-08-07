@@ -1,0 +1,401 @@
+{% extends "layouts/base.html" %}
+
+
+{% block content %}
+
+
+<section class="product-detail-page">
+
+
+<div class="detail-container">
+
+
+<!-- PRODUCT IMAGE -->
+
+
+<div class="detail-image">
+
+
+<div class="organic-product-badge">
+
+🌿 100% Organic
+
+</div>
+
+
+<img src="{{url_for(
+'static',
+filename='images/products/' + product.image
+)}}">
+
+
+</div>
+
+
+
+
+
+
+<!-- PRODUCT INFORMATION -->
+
+
+<div class="detail-info">
+
+
+<p class="detail-category">
+
+{{product.category}}
+
+</p>
+
+
+
+<h1>
+
+{{product.product_name}}
+
+</h1>
+
+
+
+
+<div class="detail-rating">
+
+★★★★★
+
+</div>
+
+
+
+
+<h2>
+
+₹ {{product.price}}
+
+</h2>
+
+
+
+<p class="availability">
+
+✔ Available Stock:
+{{product.stock}}
+
+</p>
+
+
+
+
+<p class="detail-description">
+
+{{product.description}}
+
+</p>
+
+
+
+
+
+
+<!-- WEIGHT -->
+
+<div class="weight-section">
+
+
+<h3>
+Select Weight
+</h3>
+
+
+<button 
+type="button"
+class="weight-btn active"
+data-weight="500g">
+
+500g
+
+</button>
+
+
+
+<button
+type="button"
+class="weight-btn"
+data-weight="1kg">
+
+1 Kg
+
+</button>
+
+
+
+
+<button
+type="button"
+class="weight-btn"
+data-weight="2kg">
+
+2 Kg
+
+</button>
+
+
+
+<input 
+type="hidden"
+id="selected-weight"
+value="500g">
+
+
+</div>
+
+
+
+
+
+<!-- QUANTITY -->
+
+<div class="quantity-box">
+
+
+<button type="button"
+id="minus">
+
+−
+
+</button>
+
+
+<span id="quantity">
+
+1
+
+</span>
+
+
+<button type="button"
+id="plus">
+
++
+
+</button>
+
+
+<input type="hidden"
+id="selected-quantity"
+value="1">
+
+
+</div>
+
+
+
+
+
+{% if product.stock > 0 %}
+
+<button
+
+class="detail-cart-btn add-detail-cart"
+
+data-id="{{product.id}}">
+
+🛒 Add To Cart
+
+</button>
+
+
+{% else %}
+
+<button
+
+class="detail-cart-btn disabled-cart-btn"
+
+disabled>
+
+❌ Currently Not Available
+
+</button>
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- INFORMATION -->
+
+
+<div class="product-information">
+
+
+<div>
+
+
+<h2>
+
+Benefits
+
+</h2>
+
+
+<p>
+
+Natural nutrients preserved using traditional preparation methods.
+
+Healthy choice for daily lifestyle.
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div>
+
+
+<h2>
+
+Ingredients
+
+</h2>
+
+
+<p>
+
+Pure natural ingredients sourced directly from farmers.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- RELATED PRODUCTS -->
+
+
+<section class="related-products">
+
+
+<h2>
+
+You May Also Like
+
+</h2>
+
+
+
+<div class="related-grid">
+
+
+{% for item in related_products %}
+
+
+<div class="related-card">
+
+
+<div class="related-image">
+
+
+<img src="{{url_for(
+'static',
+filename='images/products/'+item.image
+)}}"
+alt="{{item.product_name}}">
+
+
+</div>
+
+
+
+
+<div class="related-content">
+
+
+<h3>
+
+{{item.product_name}}
+
+</h3>
+
+
+
+<p class="related-category">
+
+{{item.category}}
+
+</p>
+
+
+
+<h4>
+
+₹ {{item.price}}
+
+</h4>
+
+
+
+<button
+class="premium-cart-btn add-cart-btn"
+data-id="{{item.id}}">
+
+
+🛒 Add To Cart
+
+
+</button>
+
+
+
+<a href="/product/{{item.id}}"
+class="view-related">
+
+
+View Details
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+</section>
+
+
+
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,695 @@
+{% extends "admin/admin_base.html" %}
+
+
+{% block title %}
+Inventory Management
+{% endblock %}
+
+
+
+{% block page_title %}
+Inventory Management
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+<div class="inventory-page">
+
+
+
+<!-- ============================
+ PREMIUM HEADER
+============================= -->
+
+<div class="inventory-header premium-section">
+
+
+<div class="inventory-title">
+
+
+<div class="title-icon">
+📦
+</div>
+
+
+<div>
+
+<h1>
+Inventory Control Center
+</h1>
+
+<p>
+Manage stock levels, monitor availability and download reports
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="inventory-actions">
+
+
+<a href="{{ url_for('inventory_reports.inventory_pdf') }}"
+class="premium-download pdf">
+
+<i class="fa-solid fa-file-pdf"></i>
+
+<span>
+Download PDF
+</span>
+
+</a>
+
+
+
+
+<a href="{{ url_for('inventory_reports.inventory_excel') }}"
+class="premium-download excel">
+
+<i class="fa-solid fa-file-excel"></i>
+
+<span>
+Download Excel
+</span>
+
+</a>
+
+
+
+
+<a href="{{ url_for('inventory_reports.low_stock_report') }}"
+class="premium-download warning">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+<span>
+Low Stock
+</span>
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ============================
+ KPI CARDS
+============================= -->
+
+
+<div class="cards inventory-kpis">
+
+
+
+<div class="card premium-card">
+
+
+<div class="kpi-icon blue">
+
+📦
+
+</div>
+
+
+<div>
+
+<h3>
+Total Products
+</h3>
+
+<h2>
+{{total_products}}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card premium-card">
+
+
+<div class="kpi-icon green">
+
+🌿
+
+</div>
+
+
+<div>
+
+<h3>
+Available Stock
+</h3>
+
+<h2>
+{{total_stock}}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card premium-card">
+
+
+<div class="kpi-icon yellow">
+
+⚠️
+
+</div>
+
+
+<div>
+
+<h3>
+Low Stock
+</h3>
+
+<h2>
+{{low_stock}}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card premium-card">
+
+
+<div class="kpi-icon red">
+
+🚫
+
+</div>
+
+
+<div>
+
+<h3>
+Out Of Stock
+</h3>
+
+<h2>
+{{out_of_stock}}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ============================
+ PREMIUM SEARCH AREA
+============================= -->
+
+
+<div class="inventory-search-card">
+
+
+
+<form method="GET"
+class="premium-search-form">
+
+
+
+<div class="search-box">
+
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+
+<input 
+type="text"
+name="search"
+placeholder="Search products by name..."
+value="{{search}}"
+>
+
+
+</div>
+
+
+
+
+
+
+<div class="filter-box">
+
+
+<i class="fa-solid fa-filter"></i>
+
+
+<select name="filter">
+
+
+<option value="">
+All Products
+</option>
+
+
+
+<option value="low"
+{% if filter_type=="low" %}
+selected
+{% endif %}
+>
+
+Low Stock
+
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+<button class="search-premium-btn">
+
+<i class="fa-solid fa-search"></i>
+
+Search
+
+</button>
+
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ============================
+ INVENTORY TABLE
+============================= -->
+
+
+<div class="panel premium-table-panel">
+
+
+
+<div class="panel-header">
+
+
+<div>
+
+
+<h2>
+Product Inventory
+</h2>
+
+
+<p>
+Real time stock monitoring system
+</p>
+
+
+</div>
+
+
+
+<div class="live-status">
+
+<span></span>
+
+Live
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<table class="premium-table">
+
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Product
+</th>
+
+
+<th>
+Category
+</th>
+
+
+<th>
+Stock
+</th>
+
+
+<th>
+Minimum
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Update
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+
+{% for product in products %}
+
+
+
+
+<tr>
+
+
+
+<td>
+
+
+<div class="product-name">
+
+
+{% if product.image %}
+
+
+<img src="{{url_for(
+'static',
+filename='images/products/'+product.image
+)}}">
+
+
+{% endif %}
+
+
+
+<span>
+
+{{product.product_name}}
+
+</span>
+
+
+</div>
+
+
+</td>
+
+
+
+
+
+
+<td>
+
+<span class="category-pill">
+
+{{product.category}}
+
+</span>
+
+</td>
+
+
+
+
+
+
+<td>
+
+<strong>
+{{product.stock}}
+</strong>
+
+</td>
+
+
+
+
+
+
+<td>
+
+{{product.minimum_stock}}
+
+</td>
+
+
+
+
+
+
+
+<td>
+
+
+
+{% if product.stock == 0 %}
+
+
+<span class="stock-badge danger">
+
+Out Of Stock
+
+</span>
+
+
+
+{% elif product.stock <= product.minimum_stock %}
+
+
+
+<span class="stock-badge warning">
+
+Low Stock
+
+</span>
+
+
+
+
+{% else %}
+
+
+
+<span class="stock-badge success">
+
+Available
+
+</span>
+
+
+
+{% endif %}
+
+
+
+</td>
+
+
+
+
+
+
+
+<td>
+
+
+<form 
+method="POST"
+action="{{url_for(
+'inventory_actions.update_stock',
+product_id=product.id
+)}}"
+class="update-form">
+
+
+
+
+
+<div class="update-box">
+
+
+<input 
+type="number"
+name="stock"
+value="{{product.stock}}"
+min="0"
+>
+
+
+
+<button type="submit"
+class="premium-update-btn">
+
+
+<i class="fa-solid fa-rotate"></i>
+
+Update
+
+
+</button>
+
+
+
+</div>
+
+
+</form>
+
+
+</td>
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+{% else %}
+
+
+
+<tr>
+
+<td colspan="6"
+class="empty-row">
+
+
+No Products Available
+
+
+</td>
+
+</tr>
+
+
+
+
+{% endfor %}
+
+
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login | Sri Krishna Swacch Aaharam</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin-login.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="login-container">
+
+
+    <div class="background-leaf"></div>
+
+
+    <div class="login-card">
+
+
+        <div class="logo-section">
+
+            <img src="{{ url_for('static',
+            filename='logo/logo.png') }}"
+            class="admin-logo">
+
+            <h1>
+                Sri Krishna
+            </h1>
+
+            <h2>
+                Swacch Aaharam
+            </h2>
+
+            <p>
+                Organic Retail Management
+            </p>
+
+        </div>
+
+
+
+        <form method="POST">
+
+
+            <div class="input-box">
+
+                <input type="text"
+                       name="username"
+                       required>
+
+                <label>
+                    Username
+                </label>
+
+            </div>
+
+
+
+            <div class="input-box">
+
+                <input type="password"
+                       name="password"
+                       required>
+
+                <label>
+                    Password
+                </label>
+
+            </div>
+
+
+
+            <button type="submit">
+
+                Login To Dashboard
+
+            </button>
+
+
+        </form>
+
+
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                <div class="error">
+
+                    {{ messages[0] }}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+
+        <div class="footer-text">
+
+            © Sri Krishna Swacch Aaharam
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

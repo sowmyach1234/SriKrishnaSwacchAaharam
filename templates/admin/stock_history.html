@@ -1,0 +1,544 @@
+{% extends "admin/admin_base.html" %}
+
+{% block content %}
+
+<div class="admin-page-container">
+
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div>
+            <h1>
+                📦 Stock Movement History
+            </h1>
+
+            <p>
+                Track inventory additions and reductions
+            </p>
+        </div>
+
+
+        <a href="/admin/inventory/"
+   class="back-btn">
+
+    ← Inventory
+
+</a>
+
+
+    </div>
+
+
+
+
+
+    <!-- SUMMARY CARDS -->
+
+
+    <div class="history-cards">
+
+
+        <div class="history-card">
+
+            <h3>
+                Total Movements
+            </h3>
+
+            <strong>
+                {{ total }}
+            </strong>
+
+        </div>
+
+
+
+        <div class="history-card success">
+
+            <h3>
+                Stock Added
+            </h3>
+
+            <strong>
+                {{ stock_in }}
+            </strong>
+
+        </div>
+
+
+
+        <div class="history-card danger">
+
+            <h3>
+                Stock Removed
+            </h3>
+
+            <strong>
+                {{ stock_out }}
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <!-- FILTER -->
+
+
+    <form method="GET"
+          class="filter-box">
+
+
+        <input
+        type="text"
+        name="search"
+        placeholder="Search product..."
+        value="{{ request.args.get('search','') }}">
+
+
+
+        <select name="type">
+
+
+            <option value="">
+                All Movement
+            </option>
+
+
+            <option value="IN"
+            {% if request.args.get('type')=='IN' %}
+            selected
+            {% endif %}>
+                Stock In
+            </option>
+
+
+
+            <option value="OUT"
+            {% if request.args.get('type')=='OUT' %}
+            selected
+            {% endif %}>
+                Stock Out
+            </option>
+
+
+        </select>
+
+
+
+        <button type="submit">
+
+            Filter
+
+        </button>
+
+
+    </form>
+
+
+
+
+
+
+
+    <!-- TABLE -->
+
+
+    <div class="table-container">
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Product
+                    </th>
+
+
+                    <th>
+                        Previous Stock
+                    </th>
+
+
+                    <th>
+                        New Stock
+                    </th>
+
+
+                    <th>
+                        Change
+                    </th>
+
+
+                    <th>
+                        Date
+                    </th>
+
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+
+            {% for item in histories %}
+
+
+                <tr>
+
+
+                    <td>
+
+                        <strong>
+                            {{ item.product_name }}
+                        </strong>
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ item.old_stock }}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ item.new_stock }}
+
+                    </td>
+
+
+
+
+                    <td>
+
+
+                        {% if item.change > 0 %}
+
+                        <span class="stock-in">
+
+                            +{{ item.change }}
+
+                        </span>
+
+
+                        {% else %}
+
+
+                        <span class="stock-out">
+
+                            {{ item.change }}
+
+                        </span>
+
+
+                        {% endif %}
+
+
+                    </td>
+
+
+
+
+                    <td>
+
+                        {{ item.updated_at.strftime('%d %b %Y') }}
+
+                    </td>
+
+
+
+                </tr>
+
+
+
+            {% else %}
+
+
+                <tr>
+
+                    <td colspan="5"
+                        class="empty">
+
+                        No stock history found
+
+                    </td>
+
+                </tr>
+
+
+            {% endfor %}
+
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+<style>
+
+
+.admin-page-container{
+
+    padding:30px;
+
+}
+
+
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.page-header h1{
+
+    color:#1B5E20;
+
+}
+
+
+
+.back-btn{
+
+    background:#1B5E20;
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:30px;
+
+    text-decoration:none;
+
+}
+
+
+
+
+.history-cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.history-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+.history-card strong{
+
+    font-size:32px;
+
+    color:#1B5E20;
+
+}
+
+
+
+.history-card.success strong{
+
+    color:green;
+
+}
+
+
+
+.history-card.danger strong{
+
+    color:#c62828;
+
+}
+
+
+
+
+.filter-box{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.filter-box input,
+.filter-box select{
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #ddd;
+
+}
+
+
+
+.filter-box button{
+
+    background:#1B5E20;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:25px;
+
+}
+
+
+
+
+
+.table-container{
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+
+th{
+
+    background:#1B5E20;
+
+    color:white;
+
+    padding:15px;
+
+}
+
+
+
+td{
+
+    padding:15px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+
+
+
+.stock-in{
+
+    color:green;
+
+    font-weight:bold;
+
+}
+
+
+
+.stock-out{
+
+    color:#c62828;
+
+    font-weight:bold;
+
+}
+
+
+
+.empty{
+
+    text-align:center;
+
+    padding:40px;
+
+}
+
+
+
+</style>
+
+
+{% endblock %}

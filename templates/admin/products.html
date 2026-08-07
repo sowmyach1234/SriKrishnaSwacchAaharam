@@ -1,0 +1,211 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}
+Product Management
+{% endblock %}
+
+{% block page_title %}
+Product Management
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h2>
+            Manage Organic Products
+        </h2>
+
+        <p>
+            View, add, edit and manage your inventory.
+        </p>
+
+    </div>
+
+    <div class="filter-bar">
+
+
+<form method="GET">
+
+
+<input 
+type="text"
+name="search"
+placeholder="Search products...">
+
+
+
+<select name="category">
+
+
+<option value="">
+All Categories
+</option>
+
+
+
+{% for cat in categories %}
+
+<option value="{{cat[0]}}">
+
+{{cat[0]}}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+
+<button class="btn-primary">
+
+Search
+
+</button>
+
+
+</form>
+
+
+</div>
+
+    <a href="{{ url_for('admin_products.add_product') }}"
+       class="btn-primary">
+
+        + Add Product
+
+    </a>
+
+</div>
+
+
+
+<div class="product-grid">
+
+{% for product in products %}
+
+<div class="product-card">
+
+    <div class="product-image">
+
+        {% if product.image %}
+
+        <img src="{{ url_for('static',
+        filename='images/products/' + product.image) }}">
+
+        {% else %}
+
+        <div class="image-placeholder">
+
+            🌿
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <div class="product-body">
+
+        <h3>
+
+            {{ product.product_name }}
+
+        </h3>
+
+        <p class="category">
+
+            {{ product.category }}
+
+        </p>
+
+        <p class="price">
+
+            ₹ {{ product.price }}
+
+        </p>
+
+        <p>
+
+            Stock :
+
+            <strong>
+
+                {{ product.stock }}
+
+            </strong>
+
+        </p>
+
+        {% if product.organic %}
+
+        <span class="badge">
+
+            Organic
+
+        </span>
+
+        {% endif %}
+
+
+
+        <div class="actions">
+
+    <a href="{{ url_for('admin_products.edit_product',
+                        product_id=product.id) }}"
+       class="edit-btn">
+
+        <i class="fa-solid fa-pen"></i>
+
+        Edit
+
+    </a>
+
+    <a href="{{ url_for('admin_products.delete_product',
+                        product_id=product.id) }}"
+       class="delete-btn"
+
+       
+
+        <i class="fa-solid fa-trash"></i>
+
+        Delete
+
+    </a>
+
+</div>
+
+    </div>
+
+</div>
+
+{% else %}
+
+<div class="empty-box">
+
+    <h3>
+
+        No Products Found
+
+    </h3>
+
+    <p>
+
+        Click "Add Product" to create your first product.
+
+    </p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

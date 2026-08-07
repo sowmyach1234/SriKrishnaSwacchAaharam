@@ -1,0 +1,1088 @@
+{% extends "admin/admin_base.html" %}
+
+
+{% block title %}
+Business Intelligence Dashboard
+{% endblock %}
+
+
+
+{% block page_title %}
+Business Intelligence Dashboard
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div class="dashboard-container">
+
+
+
+<!-- ===================================
+PREMIUM WELCOME HERO
+=================================== -->
+
+
+<section class="dashboard-welcome">
+
+
+<div>
+
+<h1>
+👋 Welcome Back, Admin
+</h1>
+
+
+<p>
+Monitor sales performance, inventory health,
+customer behaviour and business growth
+from one intelligent dashboard.
+</p>
+
+
+</div>
+
+
+<div class="welcome-badge">
+
+🌿 Sri Krishna ERP
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ===================================
+KPI CARDS
+=================================== -->
+
+
+<section class="dashboard-kpis">
+
+
+<div class="premium-card">
+
+<div class="kpi-icon green">
+💰
+</div>
+
+
+<div>
+
+<h3>
+Total Revenue
+</h3>
+
+
+<h2 class="counter"
+data-value="{{ total_revenue }}"
+data-currency="true">
+₹0
+</h2>
+
+
+<span>
+Business Growth
+</span>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="premium-card">
+
+
+<div class="kpi-icon blue">
+🛒
+</div>
+
+
+<div>
+
+<h3>
+Total Orders
+</h3>
+
+
+<h2 class="counter"
+data-value="{{ total_orders }}">
+0
+</h2>
+
+
+<span>
+Completed Transactions
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="premium-card">
+
+
+<div class="kpi-icon yellow">
+👥
+</div>
+
+
+<div>
+
+<h3>
+Customers
+</h3>
+
+
+<h2 class="counter"
+data-value="{{ total_customers }}">
+0
+</h2>
+
+
+<span>
+Registered Users
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="premium-card">
+
+
+<div class="kpi-icon red">
+📦
+</div>
+
+
+<div>
+
+<h3>
+Products
+</h3>
+
+
+<h2 class="counter"
+data-value="{{ total_products }}">
+0
+</h2>
+
+
+<span>
+Inventory Items
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===================================
+CHART SECTION
+=================================== -->
+
+
+<section class="dashboard-grid">
+
+
+
+<div class="premium-panel chart-card">
+
+
+<div class="panel-header">
+
+<h2>
+📈 Revenue Trend
+</h2>
+
+
+</div>
+
+
+<div class="chart-box">
+
+<canvas id="salesChart"></canvas>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="premium-panel chart-card">
+
+
+<div class="panel-header">
+
+
+<h2>
+🥧 Category Sales
+</h2>
+
+
+</div>
+
+
+<div class="chart-box">
+
+<canvas id="categoryChart"></canvas>
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="dashboard-grid">
+
+
+
+<div class="premium-panel chart-card">
+
+
+<div class="panel-header">
+
+<h2>
+🍩 Inventory Health
+</h2>
+
+</div>
+
+
+
+<div class="chart-box">
+
+<canvas id="inventoryChart"></canvas>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="premium-panel chart-card">
+
+
+<div class="panel-header">
+
+<h2>
+🏆 Top Products
+</h2>
+
+
+</div>
+
+
+<div class="chart-box">
+
+
+<canvas id="topProductsChart"></canvas>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===================================
+BUSINESS INSIGHTS
+=================================== -->
+
+
+<section class="premium-panel">
+
+
+<div class="panel-header">
+
+<h2>
+💡 Business Insights
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="dashboard-kpis">
+
+
+
+<div class="premium-card">
+
+
+<div class="kpi-icon green">
+⭐
+</div>
+
+
+<div>
+
+<h3>
+Best Seller
+</h3>
+
+
+<h2>
+{{ best_seller }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="premium-card">
+
+
+<div class="kpi-icon yellow">
+⚠️
+</div>
+
+
+<div>
+
+<h3>
+Low Stock
+</h3>
+
+
+<h2>
+{{ low_stock_products|length }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="premium-card">
+
+
+<div class="kpi-icon blue">
+⏳
+</div>
+
+
+<div>
+
+<h3>
+Pending Orders
+</h3>
+
+
+<h2>
+{{ pending_orders }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="premium-card">
+
+
+<div class="kpi-icon green">
+💵
+</div>
+
+
+<div>
+
+<h3>
+Average Order
+</h3>
+
+
+<h2>
+₹{{ average_order_value }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ===================================
+ADVANCED BI INTELLIGENCE
+STAGE 12.2
+=================================== -->
+
+
+<section class="premium-panel advanced-bi-panel">
+
+
+<div class="panel-header">
+
+<h2>
+🧠 Advanced Business Intelligence
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="dashboard-kpis advanced-bi-grid">
+
+
+
+
+
+<!-- Revenue Growth -->
+
+<div class="premium-card bi-card">
+
+
+<div class="kpi-icon green">
+
+📈
+
+</div>
+
+
+
+<div>
+
+
+<h3>
+Revenue Growth
+</h3>
+
+
+<h2 class="growth-value">
+
+{{ revenue_growth }}%
+
+</h2>
+
+
+<span>
+
+Monthly Performance
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Current Month Revenue -->
+
+
+<div class="premium-card bi-card">
+
+
+<div class="kpi-icon blue">
+
+💰
+
+</div>
+
+
+
+<div>
+
+
+<h3>
+Current Month Revenue
+</h3>
+
+
+
+<h2>
+
+₹{{ current_month_revenue }}
+
+</h2>
+
+
+
+<span>
+
+This Month
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Inventory Value -->
+
+
+<div class="premium-card bi-card">
+
+
+<div class="kpi-icon yellow">
+
+📦
+
+</div>
+
+
+
+<div>
+
+
+<h3>
+Inventory Value
+</h3>
+
+
+
+<h2>
+
+₹{{ inventory_value }}
+
+</h2>
+
+
+
+<span>
+
+Stock Worth
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Business Health -->
+
+
+<div class="premium-card bi-card">
+
+
+<div class="kpi-icon green">
+
+🌱
+
+</div>
+
+
+
+<div>
+
+
+<h3>
+Business Health
+</h3>
+
+
+
+<h2>
+
+{{ business_health_score }}%
+
+</h2>
+
+
+
+<span>
+
+ERP Intelligence Score
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+<!-- ===================================
+CUSTOMER ANALYTICS
+=================================== -->
+
+
+<section class="premium-panel">
+
+
+<div class="panel-header">
+
+
+<h2>
+👥 Customer Segments
+</h2>
+
+
+</div>
+
+
+
+
+<div class="dashboard-kpis">
+
+
+<div class="premium-card">
+
+
+<h3>
+Premium Customers
+</h3>
+
+
+<h2>
+{{ premium_customers }}
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="premium-card">
+
+
+<h3>
+Regular Customers
+</h3>
+
+
+<h2>
+{{ regular_customers }}
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="premium-card">
+
+
+<h3>
+New Customers
+</h3>
+
+
+<h2>
+{{ new_customers }}
+</h2>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===================================
+RECENT PRODUCTS
+=================================== -->
+
+
+<section class="dashboard-grid">
+
+
+
+<div class="premium-panel">
+
+
+<div class="panel-header">
+
+<h2>
+📦 Recent Products
+</h2>
+
+
+</div>
+
+
+
+
+<table class="premium-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Product
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Stock
+</th>
+
+</tr>
+
+</thead>
+
+
+
+
+<tbody>
+
+
+{% for product in recent_products %}
+
+
+<tr>
+
+
+<td>
+
+{{ product.product_name }}
+
+</td>
+
+
+
+<td>
+
+<span class="category-pill">
+
+{{ product.category }}
+
+</span>
+
+</td>
+
+
+
+<td>
+
+{{ product.stock }}
+
+</td>
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="premium-panel">
+
+
+<div class="panel-header">
+
+<h2>
+⚠ Inventory Alerts
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="alert-list">
+
+
+{% for product in low_stock_products %}
+
+
+<div class="alert-item">
+
+
+<strong>
+{{ product.product_name }}
+</strong>
+
+
+
+<span class="stock-badge warning">
+
+{{ product.stock }} Left
+
+</span>
+
+
+
+</div>
+
+
+
+{% else %}
+
+
+<div class="empty-state">
+
+✅ Inventory Healthy
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+</div>
+
+
+
+<script>
+
+window.dashboardData = {
+
+
+salesLabels:
+{{ sales_labels|tojson }},
+
+
+salesValues:
+{{ sales_values|tojson }},
+
+
+
+categoryLabels:
+{{ category_labels|tojson }},
+
+
+categoryValues:
+{{ category_values|tojson }},
+
+
+
+
+inventoryLabels:
+{{ inventory_labels|tojson }},
+
+
+inventoryValues:
+{{ inventory_values|tojson }},
+
+
+
+topProductNames:
+{{ top_product_names|tojson }},
+
+
+topProductSales:
+{{ top_product_sales|tojson }}
+
+
+};
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{{ url_for(
+'static',
+filename='js/admin_dashboard.js'
+) }}"></script>
+
+
+{% include "admin/components/ai_insights.html" %}
+
+{% include "admin/components/predictive_ai.html" %}
+
+
+{% endblock %}

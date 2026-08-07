@@ -1,0 +1,200 @@
+{% extends "admin/admin_base.html" %}
+
+
+
+{% block title %}
+
+Admin Activity Log
+
+{% endblock %}
+
+
+
+
+
+{% block page_title %}
+
+Admin Activity Log
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<section class="activity-container">
+
+
+
+    <!-- ==========================================
+    HEADER
+    ========================================== -->
+
+    <div class="activity-hero">
+
+        <div>
+
+            <h1>
+                📋 Admin Activity Log
+            </h1>
+
+            <p>
+                Track administrator actions and important system events
+            </p>
+
+        </div>
+
+
+        <div class="activity-status">
+
+            <span>
+                ● Monitoring Active
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- ==========================================
+    ACTIVITY TABLE
+    ========================================== -->
+
+    <div class="activity-card">
+
+        <table class="activity-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Action
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Date & Time
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+                {% for item in activities %}
+
+                <tr>
+
+                    <td>
+
+                        <span class="activity-action">
+
+                            {{ item.action }}
+
+                        </span>
+
+                    </td>
+
+
+
+                    <td class="activity-description">
+
+                        {{ item.description }}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {% if item.status == "Success" %}
+
+                            <span class="status-success">
+
+                                {{ item.status }}
+
+                            </span>
+
+                        {% elif item.status == "Warning" %}
+
+                            <span class="status-warning">
+
+                                {{ item.status }}
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-failed">
+
+                                {{ item.status }}
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ item.created_at.strftime("%d %b %Y") }}
+
+                        <br>
+
+                        <small>
+
+                            {{ item.created_at.strftime("%I:%M %p") }}
+
+                        </small>
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="4" class="activity-empty">
+
+                        No activity has been recorded yet.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+
+<title>
+{% block title %}
+Admin Panel
+{% endblock %}
+</title>
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="stylesheet"
+href="{{ url_for(
+'static',
+filename='css/admin.css'
+)}}">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap"
+rel="stylesheet">
+
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+</head>
+
+
+
+
+<body>
+
+
+<div class="admin-wrapper">
+
+
+
+
+
+<!-- ============================
+ SIDEBAR
+============================= -->
+
+
+<aside class="sidebar">
+
+
+<div class="brand">
+
+
+<div class="brand-logo">
+
+<img src="{{url_for(
+'static',
+filename='logo/logo.png'
+)}}">
+
+</div>
+
+
+
+<div class="brand-text">
+
+
+<h2>
+Sri Krishna
+</h2>
+
+
+<p>
+Swacch Aaharam
+</p>
+
+
+<span>
+Organic ERP
+</span>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<nav class="premium-menu">
+
+
+<a href="{{url_for('admin.dashboard')}}"
+class="menu-item">
+
+<div class="menu-icon">
+🏠
+</div>
+
+<span>
+Dashboard
+</span>
+
+</a>
+
+
+
+
+<a href="{{url_for('admin_products.product_list')}}"
+class="menu-item">
+
+<div class="menu-icon">
+📦
+</div>
+
+<span>
+Products
+</span>
+
+</a>
+
+
+
+
+
+<a href="{{url_for('admin_orders.order_list')}}"
+class="menu-item">
+
+<div class="menu-icon">
+🛒
+</div>
+
+<span>
+Orders
+</span>
+
+</a>
+
+
+
+
+
+<a href="{{url_for('customers.customer_list')}}"
+class="menu-item">
+
+<div class="menu-icon">
+👥
+</div>
+
+<span>
+Customers
+</span>
+
+</a>
+
+
+
+
+
+<a href="{{url_for('analytics.analytics_dashboard')}}"
+class="menu-item">
+
+<div class="menu-icon">
+📈
+</div>
+
+<span>
+Analytics
+</span>
+
+</a>
+
+
+
+
+
+<a href="{{url_for('admin_inventory.inventory_dashboard')}}"
+class="menu-item">
+
+<div class="menu-icon">
+🏭
+</div>
+
+<span>
+Inventory
+</span>
+
+</a>
+
+
+
+
+
+<a href="{{url_for('stock_history.history')}}"
+class="menu-item">
+
+<div class="menu-icon">
+📜
+</div>
+
+<span>
+Stock History
+</span>
+
+</a>
+
+
+
+
+
+<a href="{{url_for('inventory_analytics.inventory_dashboard_analytics')}}"
+class="menu-item">
+
+
+<div class="menu-icon">
+📊
+</div>
+
+
+<span>
+Inventory Analytics
+</span>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="{{ url_for('executive.dashboard') }}"
+class="menu-item">
+
+    <div class="menu-icon">
+        🧠
+    </div>
+
+    <span>
+        Executive Center
+    </span>
+
+</a>
+
+
+
+
+
+<a href="{{ url_for('settings.settings_page') }}"
+class="menu-item">
+
+
+<div class="menu-icon">
+⚙️
+</div>
+
+
+<span>
+Settings
+</span>
+
+
+</a>
+
+<a href="{{url_for('activity.activity_log')}}"
+class="menu-item">
+<div class="menu-icon">
+📋
+</div> 
+
+<span>
+Activity Log
+</span>
+</a>
+
+
+
+
+<a href="{{url_for('admin.logout')}}"
+class="menu-item logout">
+
+
+<div class="menu-icon">
+🚪
+</div>
+
+
+<span>
+Logout
+</span>
+
+
+</a>
+
+
+
+
+</nav>
+
+
+
+
+</aside>
+
+
+
+
+
+
+
+
+
+<!-- ============================
+ MAIN AREA
+============================= -->
+
+
+<main class="main-area">
+
+
+
+
+
+
+
+<header class="topbar">
+
+
+
+
+
+<div class="page-heading">
+
+
+<h1>
+
+{% block page_title %}
+
+Dashboard
+
+{% endblock %}
+
+</h1>
+
+
+<p>
+Sri Krishna Swacch Aaharam ERP
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="top-right">
+
+
+
+
+
+
+<div class="module-search">
+
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+
+<input 
+type="text"
+placeholder="Search modules..."
+>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="profile">
+
+
+<div class="profile-icon">
+
+<i class="fa-solid fa-user"></i>
+
+</div>
+
+
+
+<div class="profile-details">
+
+
+<strong>
+Admin
+</strong>
+
+
+<small>
+Manager
+</small>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</header>
+
+
+
+
+
+
+
+
+
+<section class="page-content">
+
+
+
+
+
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+
+
+{% if messages %}
+
+
+{% for category,message in messages %}
+
+
+<div class="alert {{category}}">
+
+{{message}}
+
+</div>
+
+
+{% endfor %}
+
+
+{% endif %}
+
+
+{% endwith %}
+
+
+
+
+
+
+
+
+{% block content %}
+
+
+
+{% endblock %}
+
+
+
+
+
+</section>
+
+
+
+
+
+
+</main>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<!-- Chart.js CDN -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- Admin Dashboard Charts -->
+
+{% if request.endpoint == "admin.dashboard" %}
+
+<script src="{{ url_for(
+'static',
+filename='js/admin_dashboard.js'
+) }}"></script>
+
+{% endif %}
+
+
+<!-- ===============================
+     ADMIN JAVASCRIPT FILES
+================================ -->
+
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<!-- Admin Common JS -->
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+
+
+
+
+<!-- Dashboard Only JS -->
+
+{% if request.endpoint == "admin.dashboard" %}
+
+<script src="{{ url_for(
+'static',
+filename='js/admin_dashboard.js'
+) }}"></script>
+
+{% endif %}
+
+
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- Admin Common JS -->
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+
+{% if request.endpoint == "customer.customer_profile" %}
+
+<script src="{{ url_for(
+'static',
+filename='js/customer_profile.js'
+) }}"></script>
+
+{% endif %}
+
+
+</body>
+</html>

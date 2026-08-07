@@ -1,0 +1,116 @@
+<nav class="premium-navbar">
+
+    <div class="navbar-container">
+
+        <!-- Brand -->
+        <a href="/" class="brand">
+
+            <img src="{{ url_for('static',
+            filename='logo/logo.png') }}"
+            class="brand-logo">
+
+            <div class="brand-text">
+
+                <h2>Sri Krishna</h2>
+
+                <h3>Swacch Aaharam</h3>
+
+            </div>
+
+        </a>
+
+        <!-- Navigation -->
+        <div class="menu">
+
+            <a href="/">Home</a>
+
+            <a href="/products">Products</a>
+
+            <a href="/categories">Categories</a>
+
+            <a href="/about">About Us</a>
+
+            <a href="/blog">Blog</a>
+
+            <a href="/contact">Contact Us</a>
+            <a href="/wishlist">
+
+❤️ Wishlist
+
+</a>
+
+        </div>
+
+        <!-- Right Side -->
+        <div class="header-actions">
+
+    <!-- Search -->
+
+    <form class="header-search"
+          action="/products"
+          method="GET">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search Products">
+
+        <button>
+
+            🔍
+
+        </button>
+
+    </form>
+
+
+    <!-- Wishlist -->
+
+    <a href="{{ url_for('wishlist.wishlist_page') }}"
+   class="header-icon">
+
+    ❤
+
+    <span>Wishlist</span>
+
+</a>
+
+
+    <!-- Cart -->
+
+    <a href="/cart"
+       class="header-icon cart">
+
+        🛒
+
+        <span>Cart</span>
+
+        {% if cart_count > 0 %}
+
+        <b>
+
+            {{ cart_count }}
+
+        </b>
+
+        {% endif %}
+
+    </a>
+
+
+    <!-- Admin -->
+
+    <a href="/admin"
+       class="header-icon">
+
+        👤
+
+        <span>Admin</span>
+
+    </a>
+
+</div>
+
+    </div>
+
+</nav>

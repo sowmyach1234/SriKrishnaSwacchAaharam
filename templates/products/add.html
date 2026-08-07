@@ -1,0 +1,80 @@
+{% extends "layouts/base.html" %}
+
+
+
+{% block content %}
+
+
+<h1>
+Add New Product
+</h1>
+
+
+
+<form method="POST">
+
+
+
+<input 
+name="name"
+placeholder="Product Name">
+
+
+<br>
+
+
+<input 
+name="category"
+placeholder="Category">
+
+
+<br>
+
+
+<textarea
+name="description"
+placeholder="Description">
+</textarea>
+
+
+<br>
+
+
+<input
+name="price"
+placeholder="Price">
+
+
+<br>
+
+
+<input
+name="stock"
+placeholder="Stock Quantity">
+
+
+<br>
+
+
+<input
+name="image"
+placeholder="Image Name">
+
+
+<br>
+
+
+
+<button type="submit">
+
+Save Product
+
+</button>
+
+
+
+</form>
+
+
+
+{% endblock %}

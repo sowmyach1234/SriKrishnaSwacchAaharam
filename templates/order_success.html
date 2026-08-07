@@ -1,0 +1,367 @@
+{% extends "layouts/base.html" %}
+
+
+{% block content %}
+
+
+<section class="order-success-page">
+
+
+<div class="success-container">
+
+
+
+<!-- =========================
+     SUCCESS HEADER
+========================= -->
+
+
+<div class="success-header">
+
+
+<div class="success-icon">
+
+✓
+
+</div>
+
+
+<h1>
+Order Confirmed!
+</h1>
+
+
+<p>
+Thank you for choosing
+<strong>
+Sri Krishna Swacch Aaharam
+</strong>
+🌿
+</p>
+
+
+<div class="order-number">
+
+Order ID :
+<span>
+#{{ order.id }}
+</span>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- =========================
+     CUSTOMER DETAILS
+========================= -->
+
+
+<div class="success-grid">
+
+
+
+<div class="success-card">
+
+
+<h2>
+Delivery Information
+</h2>
+
+
+<div class="detail-row">
+
+<span>
+Customer Name
+</span>
+
+<strong>
+{{ order.customer_name }}
+</strong>
+
+</div>
+
+
+
+
+<div class="detail-row">
+
+<span>
+Phone
+</span>
+
+<strong>
+{{ order.customer_phone }}
+</strong>
+
+</div>
+
+
+
+
+
+<div class="detail-row">
+
+
+<span>
+Address
+</span>
+
+
+<strong>
+
+{{ order.customer_address }}
+
+</strong>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- =========================
+     ORDER STATUS
+========================= -->
+
+
+<div class="success-card status-card">
+
+
+<h2>
+Order Status
+</h2>
+
+
+
+<div class="status">
+
+<div class="status-circle">
+
+✓
+
+</div>
+
+
+<div>
+
+<h3>
+{{ order.status }}
+</h3>
+
+<p>
+Your order has been placed successfully.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- =========================
+     ORDER ITEMS
+========================= -->
+
+
+<div class="success-card order-summary">
+
+
+<h2>
+Order Summary
+</h2>
+
+
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Product
+</th>
+
+
+<th>
+Quantity
+</th>
+
+
+<th>
+Price
+</th>
+
+
+<th>
+Total
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+{% for item in order.items %}
+
+
+<tr>
+
+
+<td>
+
+{{ item.product_name }}
+
+</td>
+
+
+
+<td>
+
+{{ item.quantity }}
+
+</td>
+
+
+
+
+<td>
+
+₹ {{ item.price }}
+
+</td>
+
+
+
+
+<td>
+
+₹ {{ item.price * item.quantity }}
+
+</td>
+
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+
+<div class="final-total">
+
+
+<span>
+Total Amount
+</span>
+
+
+<strong>
+
+₹ {{ order.total_amount }}
+
+</strong>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- =========================
+     ACTION BUTTONS
+========================= -->
+
+
+<div class="order-actions">
+
+
+<a href="/products"
+class="continue-btn">
+
+Continue Shopping
+
+</a>
+
+
+
+
+<a href="{{ url_for('invoice.generate_invoice', order_id=order.id) }}"
+class="invoice-btn">
+
+Download Invoice
+
+</a>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends "layouts/base.html" %}
+
+
+{% block content %}
+
+
+
+<section class="category-page">
+
+
+
+<div class="category-header">
+
+
+<span>
+🌿 Explore Our Collection
+</span>
+
+
+
+<h1>
+Organic Categories
+</h1>
+
+
+
+<p>
+Discover traditional food products crafted with purity and care.
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="category-grid">
+
+
+
+{% for category in categories %}
+
+
+
+<div class="category-card">
+
+
+
+
+
+<!-- CATEGORY IMAGE -->
+
+<div class="category-image">
+
+
+<img src="{{url_for(
+'static',
+filename='images/'+category.image
+)}}">
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- CATEGORY CONTENT -->
+
+
+<div class="category-content">
+
+
+
+<h2>
+
+{{category.name}}
+
+</h2>
+
+
+
+
+
+<p>
+
+{{category.description}}
+
+</p>
+
+
+
+
+
+
+
+
+
+<!-- CATEGORY PRODUCTS -->
+
+
+
+<div class="category-products">
+
+
+
+{% for product in category.products %}
+
+
+
+<div class="category-product-item">
+
+
+
+<img src="{{url_for(
+'static',
+filename='images/products/'+product.image
+)}}">
+
+
+
+<h4>
+
+{{product.product_name}}
+
+</h4>
+
+
+
+<p>
+
+₹ {{product.price}}
+
+</p>
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<a href="/products?category={{category.filter}}">
+
+Explore Products →
+
+</a>
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+{% endblock %}

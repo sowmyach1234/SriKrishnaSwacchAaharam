@@ -1,3 +1,4 @@
+```html
 <nav class="premium-navbar">
 
     <div class="navbar-container">
@@ -10,17 +11,25 @@
             class="brand-logo">
 
             <div class="brand-text">
-
                 <h2>Sri Krishna</h2>
-
                 <h3>Swacch Aaharam</h3>
-
             </div>
 
         </a>
 
+
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn"
+                onclick="toggleMobileMenu()"
+                type="button">
+
+            ☰
+
+        </button>
+
+
         <!-- Navigation -->
-        <div class="menu">
+        <div class="menu" id="mobileMenu">
 
             <a href="/">Home</a>
 
@@ -33,84 +42,90 @@
             <a href="/blog">Blog</a>
 
             <a href="/contact">Contact Us</a>
+
             <a href="/wishlist">
-
-❤️ Wishlist
-
-</a>
+                ❤️ Wishlist
+            </a>
 
         </div>
+
 
         <!-- Right Side -->
         <div class="header-actions">
 
-    <!-- Search -->
+            <!-- Search -->
+            <form class="header-search"
+                  action="/products"
+                  method="GET">
 
-    <form class="header-search"
-          action="/products"
-          method="GET">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search Products">
 
-        <input
-            type="text"
-            name="search"
-            placeholder="Search Products">
+                <button type="submit">
+                    🔍
+                </button>
 
-        <button>
-
-            🔍
-
-        </button>
-
-    </form>
+            </form>
 
 
-    <!-- Wishlist -->
+            <!-- Wishlist -->
+            <a href="{{ url_for('wishlist.wishlist_page') }}"
+               class="header-icon">
 
-    <a href="{{ url_for('wishlist.wishlist_page') }}"
-   class="header-icon">
+                ❤
 
-    ❤
+                <span>Wishlist</span>
 
-    <span>Wishlist</span>
-
-</a>
-
-
-    <!-- Cart -->
-
-    <a href="/cart"
-       class="header-icon cart">
-
-        🛒
-
-        <span>Cart</span>
-
-        {% if cart_count > 0 %}
-
-        <b>
-
-            {{ cart_count }}
-
-        </b>
-
-        {% endif %}
-
-    </a>
+            </a>
 
 
-    <!-- Admin -->
+            <!-- Cart -->
+            <a href="/cart"
+               class="header-icon cart">
 
-    <a href="/admin"
-       class="header-icon">
+                🛒
 
-        👤
+                <span>Cart</span>
 
-        <span>Admin</span>
+                {% if cart_count > 0 %}
 
-    </a>
+                <b>
+                    {{ cart_count }}
+                </b>
 
-</div>
+                {% endif %}
+
+            </a>
+
+
+            <!-- Admin -->
+            <a href="/admin"
+               class="header-icon">
+
+                👤
+
+                <span>Admin</span>
+
+            </a>
+
+        </div>
 
     </div>
 
 </nav>
+
+
+<script>
+
+function toggleMobileMenu() {
+
+    const menu = document.getElementById("mobileMenu");
+
+    menu.classList.toggle("mobile-menu-open");
+
+}
+
+</script>
+```

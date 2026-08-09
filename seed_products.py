@@ -74,10 +74,9 @@ products = [
 # MILLETS
 # ==========================
 
-
 {
 "name":"Foxtail Millet",
-"category":"Millets",
+"category":"Organic Millets",
 "description":"Healthy organic foxtail millet rich in nutrition.",
 "price":180,
 "stock":70,
@@ -87,13 +86,12 @@ products = [
 
 {
 "name":"Little Millet",
-"category":"Millets",
+"category":"Organic Millets",
 "description":"Natural little millet for healthy lifestyle.",
 "price":200,
 "stock":50,
 "image":"little_millet.jpg"
 },
-
 
 
 # ==========================
